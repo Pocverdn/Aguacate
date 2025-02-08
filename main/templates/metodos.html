@@ -1,136 +1,68 @@
-{% extends "base.html" %}
+{% extends "layout/base.html" %}
 
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    <div class="image-container">
+<div class="container text-center">
+    <h2 class="my-4">Seleccione un Método</h2>
 
-        <form action="/metodo1/" method="POST">
-            {% csrf_token %}
-            <button type="submit">Metodo1</button>
-        </form>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card p-3">
+                <h5>Grupo 1</h5>
+                <div class="d-grid gap-2">
+                    <form action="/metodo1/" method="POST">{% csrf_token %}<button class="btn btn-primary" type="submit">Método 1</button></form>
+                    <form action="/metodo2/" method="POST">{% csrf_token %}<button class="btn btn-primary" type="submit">Método 2</button></form>
+                    <form action="/metodo3/" method="POST">{% csrf_token %}<button class="btn btn-primary" type="submit">Método 3</button></form>
+                    <form action="/metodo4/" method="POST">{% csrf_token %}<button class="btn btn-primary" type="submit">Método 4</button></form>
+                    <form action="/metodo5/" method="POST">{% csrf_token %}<button class="btn btn-primary" type="submit">Método 5</button></form>
+                    <form action="/metodo6/" method="POST">{% csrf_token %}<button class="btn btn-primary" type="submit">Método 6</button></form>
+                </div>
+            </div>
+        </div>
 
-        <form action="/metodo2/" method="POST">
-            {% csrf_token %}
-            <button type="submit">Metodo2</button>
-        </form>
+        <div class="col-md-6">
+            <div class="card p-3">
+                <h5>Grupo 2</h5>
+                <div class="d-grid gap-2">
+                    <form action="/metodo7/" method="POST">{% csrf_token %}<button class="btn btn-secondary" type="submit">Método 7</button></form>
+                    <form action="/metodo8/" method="POST">{% csrf_token %}<button class="btn btn-secondary" type="submit">Método 8</button></form>
+                    <form action="/metodo9/" method="POST">{% csrf_token %}<button class="btn btn-secondary" type="submit">Método 9</button></form>
+                    <form action="/metodo10/" method="POST">{% csrf_token %}<button class="btn btn-secondary" type="submit">Método 10</button></form>
+                    <form action="/metodo11/" method="POST">{% csrf_token %}<button class="btn btn-secondary" type="submit">Método 11</button></form>
+                    <form action="/metodo12/" method="POST">{% csrf_token %}<button class="btn btn-secondary" type="submit">Método 12</button></form>
+                </div>
+            </div>
+        </div>
 
-        <form action="/metodo3/" method="POST">
-            {% csrf_token %}
-            <button type="submit">metodo3</button>
-        </form>
+        <div class="col-md-6 mt-4">
+            <div class="card p-3">
+                <h5>Grupo 3</h5>
+                <div class="d-grid gap-2">
+                    <form action="/metodo13/" method="POST">{% csrf_token %}<button class="btn btn-success" type="submit">Método 13</button></form>
+                    <form action="/metodo14/" method="POST">{% csrf_token %}<button class="btn btn-success" type="submit">Método 14</button></form>
+                    <form action="/metodo15/" method="POST">{% csrf_token %}<button class="btn btn-success" type="submit">Método 15</button></form>
+                    <form action="/metodo16/" method="POST">{% csrf_token %}<button class="btn btn-success" type="submit">Método 16</button></form>
+                    <form action="/metodo17/" method="POST">{% csrf_token %}<button class="btn btn-success" type="submit">Método 17</button></form>
+                    <form action="/metodo18/" method="POST">{% csrf_token %}<button class="btn btn-success" type="submit">Método 18</button></form>
+                </div>
+            </div>
+        </div>
 
-        <form action="/metodo4/" method="POST">
-            {% csrf_token %}
-            <button type="submit">metodo4</button>
-        </form>
-
-        <form action="/metodo5/" method="POST">
-            {% csrf_token %}
-            <button type="submit">metodo5</button>
-        </form>
-
-        <form action="/metodo6/" method="POST">
-            {% csrf_token %}
-            <button type="submit">metodo6</button>
-        </form>
-
-        <form action="/metodo7/" method="POST">
-            {% csrf_token %}
-            <button type="submit">metodo7</button>
-        </form>
-
-        <form action="/metodo8/" method="POST">
-            {% csrf_token %}
-            <button type="submit">metodo8</button>
-        </form>
-
-        <form action="/metodo9/" method="POST">
-            {% csrf_token %}
-            <button type="submit">metodo9</button>
-        </form>
-
-        <form action="/metodo10/" method="POST">
-            {% csrf_token %}
-            <button type="submit">metodo10</button>
-        </form>
-
-        <form action="/metodo11/" method="POST">
-            {% csrf_token %}
-            <button type="submit">metodo11</button>
-        </form>
-
-        <form action="/metodo12/" method="POST">
-            {% csrf_token %}
-            <button type="submit">metodo12</button>
-        </form>
-
-        <form action="/metodo13/" method="POST">
-            {% csrf_token %}
-            <button type="submit">metodo13</button>
-        </form>
-
-        <form action="/metodo14/" method="POST">
-            {% csrf_token %}
-            <button type="submit">metodo14</button>
-        </form>
-
-        <form action="/metodo15/" method="POST">
-            {% csrf_token %}
-            <button type="submit">metodo15</button>
-        </form>
-
-        <form action="/metodo16/" method="POST">
-            {% csrf_token %}
-            <button type="submit">metodo16</button>
-        </form>
-
-        <form action="/metodo17/" method="POST">
-            {% csrf_token %}
-            <button type="submit">metodo17</button>
-        </form>
-
-        <form action="/metodo18/" method="POST">
-            {% csrf_token %}
-            <button type="submit">metodo18</button>
-        </form>
-
-        <form action="/metodo19/" method="POST">
-            {% csrf_token %}
-            <button type="submit">metodo19</button>
-        </form>
-
-        <form action="/metodo20/" method="POST">
-            {% csrf_token %}
-            <button type="submit">metodo20</button>
-        </form>
-
-        <form action="/metodo21/" method="POST">
-            {% csrf_token %}
-            <button type="submit">metodo21</button>
-        </form>
-
-        <form action="/metodo22/" method="POST">
-            {% csrf_token %}
-            <button type="submit">metodo22</button>
-        </form>
-
-        <form action="/metodo23/" method="POST">
-            {% csrf_token %}
-            <button type="submit">metodo23</button>
-        </form>
-
-        <form action="/metodo24/" method="POST">
-            {% csrf_token %}
-            <button type="submit">metodo24</button>
-        </form>
-
-
-
-
-  
-
-
+        <div class="col-md-6 mt-4">
+            <div class="card p-3">
+                <h5>Grupo 4</h5>
+                <div class="d-grid gap-2">
+                    <form action="/metodo19/" method="POST">{% csrf_token %}<button class="btn btn-danger" type="submit">Método 19</button></form>
+                    <form action="/metodo20/" method="POST">{% csrf_token %}<button class="btn btn-danger" type="submit">Método 20</button></form>
+                    <form action="/metodo21/" method="POST">{% csrf_token %}<button class="btn btn-danger" type="submit">Método 21</button></form>
+                    <form action="/metodo22/" method="POST">{% csrf_token %}<button class="btn btn-danger" type="submit">Método 22</button></form>
+                    <form action="/metodo23/" method="POST">{% csrf_token %}<button class="btn btn-danger" type="submit">Método 23</button></form>
+                    <form action="/metodo24/" method="POST">{% csrf_token %}<button class="btn btn-danger" type="submit">Método 24</button></form>
+                </div>
+            </div>
+        </div>
 
     </div>
+</div>
 {% endblock %}
