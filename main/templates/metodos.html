@@ -1,68 +1,100 @@
 {% extends "layout/base.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Metodos{% endblock %}
 
 {% block content %}
-<div class="container text-center">
+<div class="container-margin container text-center">
     <h2 class="my-4">Seleccione un Método</h2>
 
-    <div class="row">
-        <div class="col-md-6">
+    <div class="container">
+        <div class="row">
+            <div class="card p-3 justify-content-start">
+                <h5>Solving systems by graphing</h5>
+                <div class="row">
+                    <div class="col-auto-auto">
+                        <form action="/metodo1/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
+                    </div>
+                </div>
+            </div>
             <div class="card p-3">
-                <h5>Grupo 1</h5>
-                <div class="d-grid gap-2">
-                    <form action="/metodo1/" method="POST">{% csrf_token %}<button class="btn btn-primary" type="submit">Método 1</button></form>
-                    <form action="/metodo2/" method="POST">{% csrf_token %}<button class="btn btn-primary" type="submit">Método 2</button></form>
-                    <form action="/metodo3/" method="POST">{% csrf_token %}<button class="btn btn-primary" type="submit">Método 3</button></form>
-                    <form action="/metodo4/" method="POST">{% csrf_token %}<button class="btn btn-primary" type="submit">Método 4</button></form>
-                    <form action="/metodo5/" method="POST">{% csrf_token %}<button class="btn btn-primary" type="submit">Método 5</button></form>
-                    <form action="/metodo6/" method="POST">{% csrf_token %}<button class="btn btn-primary" type="submit">Método 6</button></form>
+                <h5>Solving equations of one variable</h5>
+                <div class="row gap-2">
+                    <div class="col-auto">
+                        <form action="/metodo2/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function evaluator</button></form>
+                    </div>
+                    <div class="col-auto">
+                        <form action="/metodo3/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Incremental search</button></form>
+                    </div>
+                    <div class="col-auto">
+                        <form action="/metodo4/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Bisection</button></form>
+                    </div>
+                    <div class="col-auto">
+                        <form action="/metodo5/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">False position</button></form>
+                    </div>
+                    <div class="col-auto">
+                        <form action="/metodo6/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Fixed point</button></form>
+                    </div>
+                    <div class="col-auto">
+                        <form action="/metodo7/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Newton-Raphson method</button></form>
+                    </div>
+                    <div class="col-auto">
+                        <form action="/metodo8/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Secant method</button></form>
+                    </div>
+                    <div class="col-auto">
+                        <form action="/metodo9/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Multiple roots</button></form>
+                    </div>
+                </div>
+            </div>
+            <div class="card p-3">
+                <h5>Solution of systems of equations</h5>
+                <div class="row gap-2">
+                    <div class="col-auto">
+                        <form action="/metodo10/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
+                    </div>
+                    <div class="col-auto">
+                        <form action="/metodo11/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
+                    </div>
+                    <div class="col-auto">
+                        <form action="/metodo12/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
+                    </div>
+                    <div class="col-auto">
+                        <form action="/metodo13/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
+                    </div>
+                    <div class="col-auto">
+                        <form action="/metodo14/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
+                    </div>
+                    <div class="col-auto">
+                        <form action="/metodo15/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
+                    </div>
+                    <div class="col-auto">
+                        <form action="/metodo16/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
+                    </div>
+                    <div class="col-auto">
+                        <form action="/metodo17/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
+                    </div>
+                    <div class="col-auto">
+                        <form action="/metodo18/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
+                    </div>
+                </div>
+            </div>
+            <div class="card p-3">
+                <h5>Interpolation</h5>
+                <div class="row gap-2">
+                    <div class="col-auto">
+                        <form action="/metodo19/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
+                    </div>
+                    <div class="col-auto">
+                        <form action="/metodo20/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
+                    </div>
+                    <div class="col-auto">
+                        <form action="/metodo21/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
+                    </div>
+                    <div class="col-auto">
+                        <form action="/metodo22/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-6">
-            <div class="card p-3">
-                <h5>Grupo 2</h5>
-                <div class="d-grid gap-2">
-                    <form action="/metodo7/" method="POST">{% csrf_token %}<button class="btn btn-secondary" type="submit">Método 7</button></form>
-                    <form action="/metodo8/" method="POST">{% csrf_token %}<button class="btn btn-secondary" type="submit">Método 8</button></form>
-                    <form action="/metodo9/" method="POST">{% csrf_token %}<button class="btn btn-secondary" type="submit">Método 9</button></form>
-                    <form action="/metodo10/" method="POST">{% csrf_token %}<button class="btn btn-secondary" type="submit">Método 10</button></form>
-                    <form action="/metodo11/" method="POST">{% csrf_token %}<button class="btn btn-secondary" type="submit">Método 11</button></form>
-                    <form action="/metodo12/" method="POST">{% csrf_token %}<button class="btn btn-secondary" type="submit">Método 12</button></form>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 mt-4">
-            <div class="card p-3">
-                <h5>Grupo 3</h5>
-                <div class="d-grid gap-2">
-                    <form action="/metodo13/" method="POST">{% csrf_token %}<button class="btn btn-success" type="submit">Método 13</button></form>
-                    <form action="/metodo14/" method="POST">{% csrf_token %}<button class="btn btn-success" type="submit">Método 14</button></form>
-                    <form action="/metodo15/" method="POST">{% csrf_token %}<button class="btn btn-success" type="submit">Método 15</button></form>
-                    <form action="/metodo16/" method="POST">{% csrf_token %}<button class="btn btn-success" type="submit">Método 16</button></form>
-                    <form action="/metodo17/" method="POST">{% csrf_token %}<button class="btn btn-success" type="submit">Método 17</button></form>
-                    <form action="/metodo18/" method="POST">{% csrf_token %}<button class="btn btn-success" type="submit">Método 18</button></form>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6 mt-4">
-            <div class="card p-3">
-                <h5>Grupo 4</h5>
-                <div class="d-grid gap-2">
-                    <form action="/metodo19/" method="POST">{% csrf_token %}<button class="btn btn-danger" type="submit">Método 19</button></form>
-                    <form action="/metodo20/" method="POST">{% csrf_token %}<button class="btn btn-danger" type="submit">Método 20</button></form>
-                    <form action="/metodo21/" method="POST">{% csrf_token %}<button class="btn btn-danger" type="submit">Método 21</button></form>
-                    <form action="/metodo22/" method="POST">{% csrf_token %}<button class="btn btn-danger" type="submit">Método 22</button></form>
-                    <form action="/metodo23/" method="POST">{% csrf_token %}<button class="btn btn-danger" type="submit">Método 23</button></form>
-                    <form action="/metodo24/" method="POST">{% csrf_token %}<button class="btn btn-danger" type="submit">Método 24</button></form>
-                </div>
-            </div>
-        </div>
-
     </div>
 </div>
 {% endblock %}

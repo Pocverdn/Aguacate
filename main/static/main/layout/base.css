@@ -1,0 +1,27 @@
+body {
+    background-color: white;
+    color: black;
+    justify-content: center;
+    align-items: center;
+}
+.navbar {
+    font-size: 20px;
+}
+.poppins-medium {
+    font-family: "Poppins", serif;
+    font-weight: 500;
+    font-style: normal;
+  }
+.image-container {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+}
+.image {
+    width: 30%;
+    height: 50%;
+}
+.logo {
+    width: 50px;
+    height: 50px;
+}

@@ -14,6 +14,9 @@ def metodos(request):
     if request.method == "POST":
         print("hello0")
         return redirect("/metodo1/")
+
+def acercade(request):
+    return render(request, "acercade.html")
     
 def metodo1(request):
     return render(request, "metodo1.html")

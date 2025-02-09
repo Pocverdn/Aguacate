@@ -1,11 +1,12 @@
 {% extends "layout/base.html" %}
+{% load static %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Inicio{% endblock %}
 
 {% block content %}
     <div class="image-container">
 
-        <img src="/media/others/Agucate_matematico.png" alt="Imagen grande"  class="image">
+        <img src="{% static 'main/images/Agucate_matematico.png' %}" alt="Imagen grande" class="image">
                 
     </div>
 {% endblock %}
