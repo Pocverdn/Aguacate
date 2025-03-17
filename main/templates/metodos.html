@@ -9,88 +9,25 @@
     <div class="container">
         <div class="row">
             <div class="card p-3 justify-content-start">
-                <h5>Solving systems by graphing</h5>
+                <h5>Resolviendo sistemas de ecuaciones no lineales</h5>
                 <div class="row">
-                    <div class="col-auto-auto">
-                        <form action="/metodo1/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
-                    </div>
-                </div>
-            </div>
-            <div class="card p-3">
-                <h5>Solving equations of one variable</h5>
-                <div class="row gap-2">
                     <div class="col-auto">
-                        <form action="/metodo2/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function evaluator</button></form>
+                        <form action="/biseccion/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Bisección</button></form>
                     </div>
                     <div class="col-auto">
-                        <form action="/metodo3/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Incremental search</button></form>
+                        <form action="/reglafalsa/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Regla Falsa</button></form>
                     </div>
                     <div class="col-auto">
-                        <form action="/metodo4/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Bisection</button></form>
+                        <form action="/puntofijo/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Punto Fijo</button></form>
                     </div>
                     <div class="col-auto">
-                        <form action="/metodo5/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">False position</button></form>
+                        <form action="/newton/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Newton</button></form>
                     </div>
                     <div class="col-auto">
-                        <form action="/metodo6/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Fixed point</button></form>
+                        <form action="/secante/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Secante</button></form>
                     </div>
                     <div class="col-auto">
-                        <form action="/metodo7/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Newton-Raphson method</button></form>
-                    </div>
-                    <div class="col-auto">
-                        <form action="/metodo8/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Secant method</button></form>
-                    </div>
-                    <div class="col-auto">
-                        <form action="/metodo9/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Multiple roots</button></form>
-                    </div>
-                </div>
-            </div>
-            <div class="card p-3">
-                <h5>Solution of systems of equations</h5>
-                <div class="row gap-2">
-                    <div class="col-auto">
-                        <form action="/metodo10/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
-                    </div>
-                    <div class="col-auto">
-                        <form action="/metodo11/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
-                    </div>
-                    <div class="col-auto">
-                        <form action="/metodo12/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
-                    </div>
-                    <div class="col-auto">
-                        <form action="/metodo13/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
-                    </div>
-                    <div class="col-auto">
-                        <form action="/metodo14/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
-                    </div>
-                    <div class="col-auto">
-                        <form action="/metodo15/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
-                    </div>
-                    <div class="col-auto">
-                        <form action="/metodo16/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
-                    </div>
-                    <div class="col-auto">
-                        <form action="/metodo17/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
-                    </div>
-                    <div class="col-auto">
-                        <form action="/metodo18/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
-                    </div>
-                </div>
-            </div>
-            <div class="card p-3">
-                <h5>Interpolation</h5>
-                <div class="row gap-2">
-                    <div class="col-auto">
-                        <form action="/metodo19/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
-                    </div>
-                    <div class="col-auto">
-                        <form action="/metodo20/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
-                    </div>
-                    <div class="col-auto">
-                        <form action="/metodo21/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
-                    </div>
-                    <div class="col-auto">
-                        <form action="/metodo22/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Function Plotter</button></form>
+                        <form action="/raicesmultiples/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Raices Multiples</button></form>
                     </div>
                 </div>
             </div>
