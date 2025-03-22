@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from .forms import PuntoFijoForm
+from .forms import PuntoFijoForm, NewtonForm
 
-from .metodos import pf
+from .metodos import pf, Newton
 
 
 def biseccion(request):
@@ -11,7 +11,17 @@ def regla_falsa(request):
     return render(request, "regla_falsa.html")
 
 def newton(request):
-    return render(request, "newton.html")
+    if request.method == 'POST':
+        form = NewtonForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            resultado, tabla = Newton.metodo_newton(**data)
+            return render(request, 'result_ne.html', {'resultado': resultado, 'tabla': tabla})
+    else:
+        form = PuntoFijoForm()
+    return render(request, 'newton.html', {'form': form})
+
+
 
 def secante(request):
     return render(request, "secante.html")
