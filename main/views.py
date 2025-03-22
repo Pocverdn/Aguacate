@@ -18,20 +18,3 @@ def metodos(request):
 def acerca_de(request):
     return render(request, "acerca_de.html")
     
-def biseccion(request):
-    return render(request, "biseccion.html")
-
-def regla_falsa(request):
-    return render(request, "regla_falsa.html")
-
-def punto_fijo(request):
-    return render(request, "punto_fijo.html")
-
-def newton(request):
-    return render(request, "newton.html")
-
-def secante(request):
-    return render(request, "secante.html")
-
-def raices_multiples(request):
-    return render(request, "raices_multiples.html")

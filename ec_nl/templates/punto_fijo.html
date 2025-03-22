@@ -1,0 +1,12 @@
+{% extends "layout/base.html" %}
+
+{% block title %}tercer Metodo{% endblock %}
+
+{% block content %}
+    <h1>Método de Punto Fijo</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Calcular</button>
+    </form>
+{% endblock %}
