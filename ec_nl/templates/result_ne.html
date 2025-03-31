@@ -1,10 +1,14 @@
 {% extends "layout/base.html" %}
 
-{% block title %}cuarto Metodo{% endblock %}
+{% block title %}Método de Newton{% endblock %}
 
 {% block content %}
-    <h1>Resultado de Newton</h1>
+    <h1>Resultado del Método de Newton</h1>
     <p>{{ resultado }}</p>
     {{ tabla|safe }}
-    <a href="newton/">Realizar otro cálculo</a>
+    
+    <h2>Gráfico de la función</h2>
+    <img src="{{ imagen }}" alt="Gráfico de la función" class="img-fluid">
+    
+    <a href="/">Realizar otro cálculo</a>
 {% endblock %}

@@ -15,10 +15,10 @@ def newton(request):
         form = NewtonForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            resultado, tabla = Newton.metodo_newton(**data)
-            return render(request, 'result_ne.html', {'resultado': resultado, 'tabla': tabla})
+            resultado, tabla, imagen = Newton.metodo_newton(**data)
+            return render(request, 'result_ne.html', {'resultado': resultado, 'tabla': tabla, 'imagen': imagen})
     else:
-        form = PuntoFijoForm()
+        form = NewtonForm()
     return render(request, 'newton.html', {'form': form})
 
 
@@ -34,8 +34,8 @@ def metodo_punto_fijo(request):
         form = PuntoFijoForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            resultado, tabla = pf.punto_fijo(**data)
-            return render(request, 'result_pf.html', {'resultado': resultado, 'tabla': tabla})
+            resultado, tabla, imagen = pf.punto_fijo(**data)
+            return render(request, 'result_pf.html', {'resultado': resultado, 'tabla': tabla, 'imagen': imagen})
     else:
         form = PuntoFijoForm()
     return render(request, 'punto_fijo.html', {'form': form})

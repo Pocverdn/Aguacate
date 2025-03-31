@@ -13,4 +13,4 @@ class NewtonForm(forms.Form):
     Tol = forms.FloatField(label='Tolerancia')
     Niter = forms.IntegerField(label='Número de Iteraciones')
     Fun = forms.CharField(label='Función f(x)', max_length=100)
-    df_expr = forms.CharField(label='Función df_expr(x)', max_length=100)
+    df_expr = forms.CharField(label='Derivada de la función f(x)', max_length=100)

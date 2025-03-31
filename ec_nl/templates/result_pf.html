@@ -1,10 +1,14 @@
 {% extends "layout/base.html" %}
 
-{% block title %}tercer Metodo{% endblock %}
+{% block title %}Resultado - Punto Fijo{% endblock %}
 
 {% block content %}
     <h1>Resultado del Método de Punto Fijo</h1>
     <p>{{ resultado }}</p>
     {{ tabla|safe }}
-    <a href="puntofijo/">Realizar otro cálculo</a>
+    
+    <h2>Gráfico de la función</h2>
+    <img src="{{ imagen }}" alt="Gráfico de la función" class="img-fluid">
+
+    <a href="/">Realizar otro cálculo</a>
 {% endblock %}
