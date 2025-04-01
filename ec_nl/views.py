@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .forms import PuntoFijoForm, NewtonForm, BiseccionForm, RaicesMultiplesForm
 
-from .metodos import pf, Newton
+from .metodos import Puntofijo, Newton, Reglafalsa, Secante
  
 from .metodos.biseccion import biseccion
 from .metodos.raices_multiples import raices_multiples
@@ -32,23 +32,49 @@ def biseccion_view(request):
     return render(request, 'biseccion.html', {'form': form})
 
 def regla_falsa(request):
-    return render(request, "regla_falsa.html")
+    if request.method == 'POST':
+        form = ReglaFalsaForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            modo = data.pop('Modo', None)
+            if modo == 'cs':
+                resultado, tabla, imagen = Reglafalsa.reglafalsaCS(**data)
+            else:
+                resultado, tabla, imagen = Reglafalsa.reglafalsaDC(**data)
+            return render(request, 'result_rf.html', {'resultado': resultado, 'tabla': tabla, 'imagen': imagen})
+    else:
+        form = ReglaFalsaForm()
+    return render(request, 'regla_falsa.html', {'form': form})
 
 def newton(request):
     if request.method == 'POST':
         form = NewtonForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            resultado, tabla = Newton.metodo_newton(**data)
-            return render(request, 'result_ne.html', {'resultado': resultado, 'tabla': tabla})
+            modo = data.pop('Modo', None)
+            if modo == 'cs':
+                resultado, tabla, imagen = Newton.metodo_newtonCS(**data)
+            else:
+                resultado, tabla, imagen = Newton.metodo_newton(**data)
+            return render(request, 'result_ne.html', {'resultado': resultado, 'tabla': tabla, 'imagen': imagen})
     else:
-        form = PuntoFijoForm()
+        form = NewtonForm()
     return render(request, 'newton.html', {'form': form})
 
-
-
 def secante(request):
-    return render(request, "secante.html")
+    if request.method == 'POST':
+        form = SecanteForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            modo = data.pop('Modo', None)
+            if modo == 'cs':
+                resultado, tabla, imagen = Secante.secanteCS(**data)
+            else:
+                resultado, tabla, imagen = Secante.secanteDC(**data)
+            return render(request, 'result_sc.html', {'resultado': resultado, 'tabla': tabla, 'imagen': imagen})
+    else:
+        form = SecanteForm()
+    return render(request, 'secante.html', {'form': form})
 
 
 def raices_multiples_view(request):
@@ -86,8 +112,12 @@ def metodo_punto_fijo(request):
         form = PuntoFijoForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            resultado, tabla = pf.punto_fijo(**data)
-            return render(request, 'result_pf.html', {'resultado': resultado, 'tabla': tabla})
+            modo = data.pop('Modo', None)
+            if modo == 'cs':
+                resultado, tabla, imagen = Puntofijo.punto_fijoCS(**data)
+            else:
+                resultado, tabla, imagen = Puntofijo.punto_fijo(**data)
+            return render(request, 'result_pf.html', {'resultado': resultado, 'tabla': tabla, 'imagen': imagen})
     else:
         form = PuntoFijoForm()
     return render(request, 'punto_fijo.html', {'form': form})
