@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import PuntoFijoForm, NewtonForm, BiseccionForm, RaicesMultiplesForm
+from .forms import PuntoFijoForm, NewtonForm, BiseccionForm, RaicesMultiplesForm, ReglaFalsaForm, SecanteForm
 
 from .metodos import Puntofijo, Newton, Reglafalsa, Secante
  
