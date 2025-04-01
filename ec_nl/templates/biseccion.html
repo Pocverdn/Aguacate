@@ -1,9 +1,12 @@
 {% extends "layout/base.html" %}
 
-{% block title %}Primer Metodo{% endblock %} <!-- Cambiar a cada nombre correspondiente -->
+{% block title %}Primer Método{% endblock %}
 
 {% block content %}
-
-    <h>Alo primer metodo</h>
-    <p>Aqui va lo otro</p>
-{% endblock %}
+  <h1>Método de Biseccción</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Calcular</button>
+  </form>
+{% endblock content %}

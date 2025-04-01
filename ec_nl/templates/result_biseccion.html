@@ -1,0 +1,10 @@
+{% extends "layout/base.html" %}
+
+{% block title %}primer Metodo{% endblock %}
+
+{% block content %}
+    <h1>Resultado del Método de Biseccion</h1>
+    <p>{{ resultado }}</p>
+    {{ tabla|safe }}
+    <a href="/biseccion/">Realizar otro cálculo</a>
+{% endblock %}
