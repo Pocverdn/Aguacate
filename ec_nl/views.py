@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .forms import PuntoFijoForm, NewtonForm, BiseccionForm, RaicesMultiplesForm, ReglaFalsaForm, SecanteForm
 
-from .metodos import Puntofijo, Newton, Reglafalsa, Secante
+from .metodos import Puntofijo, Newton, Reglafalsa, Secante, biseccion
  
 from .metodos.biseccion import biseccion
 from .metodos.raices_multiples import raices_multiples
@@ -20,11 +20,12 @@ def biseccion_view(request):
             f = lambdify(x, expr)
             data["fun"] = f
 
-            resultado, tabla = biseccion(**data)
+            resultado, tabla, img = biseccion(**data)
             print(resultado, tabla)
             return render(request, 'result_biseccion.html', {
                 'resultado': resultado,
-                'tabla': tabla
+                'tabla': tabla,
+                "imagen":img
             })
     else:
         form = BiseccionForm()
@@ -97,7 +98,7 @@ def raices_multiples_view(request):
             ddf = lambdify(x, expr)
             data["ddf"] = ddf
 
-            resultado, tabla = raices_multiples(**data)
+            resultado, tabla, img = raices_multiples(**data)
             return render(request, 'result_raices_multiples.html', {
                 'resultado': resultado,
                 'tabla': tabla
