@@ -6,6 +6,7 @@ from django.conf import settings
 
 from main import views as mainViews
 from ec_nl import views as ecViews
+from ec_sis import views as ecSViews
 
 urlpatterns = [
     path('', mainViews.index, name="Home"),
@@ -17,6 +18,7 @@ urlpatterns = [
     path('secante/', ecViews.secante, name="Secante"),
     path('raicesmultiples/', ecViews.raices_multiples_view, name="Raices Multiples"),
     path('puntofijo/', ecViews.metodo_punto_fijo, name="Punto Fijo"),
+    path('jacobi/', ecSViews.jacobi_view, name="Jacobi"),
 
 
     path('admin/', admin.site.urls),

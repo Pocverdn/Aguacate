@@ -30,4 +30,4 @@ def jacobi_view(request):
     else:
         form = JacobiForm()
 
-    return render(request, 'metodos/jacobi.html', {'form': form, 'resultado': resultado, 'errores': errores})
+    return render(request, 'jacobi.html', {'form': form, 'resultado': resultado, 'errores': errores})
