@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from .forms import JacobiForm
-from .metodos import jacobi 
+from .metodos.jacobi import jacobi 
 
 import numpy as np
 
@@ -27,7 +27,9 @@ def jacobi_view(request):
             except Exception as e:
                 resultado = None
                 errores = [f"Error en los datos: {e}"]
+
+            return render(request, 'result_jacobi.html', {'form': form, 'resultado': resultado, 'errores': errores})
     else:
         form = JacobiForm()
 
-    return render(request, 'jacobi.html', {'form': form, 'resultado': resultado, 'errores': errores})
+    return render(request, 'jacobi.html', {'form': form})
