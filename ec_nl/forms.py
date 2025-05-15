@@ -86,4 +86,21 @@ class SecanteForm(forms.Form):
     Modo = forms.ChoiceField(choices=modo_opciones, label="Modo")
 
 
+class todosForm(forms.Form):
+    modo_opciones = [
+        ('cs', 'Cifras Significativas'),
+        ('dc', 'Decimales Correctos')
+    ]
+
+    a = forms.FloatField(label='Valor Inicial intervalo')
+    b = forms.FloatField(label='Valor final intervalo')
+    tol = forms.FloatField(label='Tolerancia')
+    niter = forms.IntegerField(label='Número de Iteraciones')
+    fun = forms.CharField(label='Función f(x)', max_length=100)
+    df = forms.CharField(label="Derivada f'(x)", max_length=100)
+    ddf = forms.CharField(label="Segunda derivada f''(x)", max_length=100)
+    g = forms.CharField(label='Función g(x)', max_length=100)
+    Modo = forms.ChoiceField(choices=modo_opciones, label="Modo")
+
+
 
