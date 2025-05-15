@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from .forms import PuntoFijoForm, NewtonForm, BiseccionForm, RaicesMultiplesForm, ReglaFalsaForm, SecanteForm
 
-from .metodos import Puntofijo, Newton, Reglafalsa, Secante, biseccion
+from .metodos import Puntofijo, Newton, Reglafalsa, Secante
  
-from .metodos.biseccion import biseccion
-from .metodos.raices_multiples import raices_multiples
+from .metodos.Biseccion import biseccion
+from .metodos.Raices_multiples import raices_multiples
 from sympy import symbols, sympify, lambdify
 
 
