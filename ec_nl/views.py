@@ -1,11 +1,16 @@
 from django.shortcuts import render
-from .forms import PuntoFijoForm, NewtonForm, BiseccionForm, RaicesMultiplesForm, ReglaFalsaForm, SecanteForm
+from .forms import PuntoFijoForm, NewtonForm, BiseccionForm, RaicesMultiplesForm, ReglaFalsaForm, SecanteForm, todosForm
 
 from .metodos import Puntofijo, Newton, Reglafalsa, Secante
  
 from .metodos.Biseccion import biseccion
 from .metodos.Raices_multiples import raices_multiples
 from sympy import symbols, sympify, lambdify
+
+import io
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
+
 
 
 def biseccion_view(request):
@@ -85,7 +90,6 @@ def secante(request):
         form = SecanteForm()
     return render(request, 'secante.html', {'form': form})
 
-
 def raices_multiples_view(request):
     if request.method == 'POST':
         form = RaicesMultiplesForm(request.POST)
@@ -130,3 +134,49 @@ def metodo_punto_fijo(request):
     else:
         form = PuntoFijoForm()
     return render(request, 'punto_fijo.html', {'form': form})
+
+def todos_view(request):
+    if request.method == 'POST':
+        form = todosForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            modo = data.pop('Modo', None)
+            resultados = []
+
+            if modo == 'cs':
+                resultados.append(Puntofijo.punto_fijoCS(**data))
+                resultados.append(Secante.secanteCS(**data))
+                resultados.append(Reglafalsa.reglafalsaCS(**data))
+                resultados.append(Newton.metodo_newtonCS(**data))
+                resultados.append(biseccion(**data))
+                resultados.append(raices_multiples(**data))
+            else:
+                resultados.append(Puntofijo.punto_fijo(**data))
+                resultados.append(Secante.secanteDC(**data))
+                resultados.append(Reglafalsa.reglafalsaDC(**data))
+                resultados.append(Newton.metodo_newton(**data))
+                resultados.append(biseccion(**data))
+                resultados.append(raices_multiples(**data))
+
+            buffer = io.BytesIO()
+            p = canvas.Canvas(buffer)
+            p.setFont("Helvetica", 12)
+            p.drawString(100, 800, "Resultados de Métodos Numéricos")
+
+            y = 770
+            for i, (resultado, tabla, imagen) in enumerate(resultados):
+                p.drawString(100, y, f"Método {i+1} - Resultado: {resultado}")
+                y -= 20
+                for fila in tabla:
+                    p.drawString(100, y, str(fila))
+                    y -= 15
+                y -= 20
+
+            p.showPage()
+            p.save()
+            buffer.seek(0)
+
+            return FileResponse(buffer, as_attachment=True, filename='resultados_metodos.pdf')
+    else:
+        form = todosForm()
+    return render(request, 'todos.html', {'form': form})

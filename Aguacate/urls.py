@@ -18,6 +18,7 @@ urlpatterns = [
     path('secante/', ecViews.secante, name="Secante"),
     path('raicesmultiples/', ecViews.raices_multiples_view, name="Raices Multiples"),
     path('puntofijo/', ecViews.metodo_punto_fijo, name="Punto Fijo"),
+    path('todos/', ecViews.todos_view, name="todos"),
     path('jacobi/', ecSViews.jacobi_view, name="Jacobi"),
 
 
