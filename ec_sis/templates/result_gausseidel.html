@@ -1,10 +1,10 @@
 {% extends "layout/base.html" %}
 
-{% block title %}Resultado Método de Jacobi{% endblock %}
+{% block title %}Resultado Método de Gauss-Seide{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
-    <h1 class="text-center">Resultado del Método de Jacobi</h1>
+    <h1 class="text-center">Resultado del Método de Gauss-Seidel</h1>
 
     {% if resultado %}
         <div class="card mt-4">
@@ -19,7 +19,7 @@
     {% endif %}
 
     <div class="mt-4">
-        <a href="/jacobi" class="btn btn-secondary">Volver</a>
+        <a href="/gausseidel" class="btn btn-secondary">Volver</a>
     </div>
 </div>
 {% endblock %}

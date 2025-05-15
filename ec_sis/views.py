@@ -1,7 +1,9 @@
 from django.shortcuts import render
 
-from .forms import JacobiForm
-from .metodos.jacobi import jacobi 
+from .forms import JacobiForm, GausseidelForm
+from .metodos.jacobi import jacobi
+from .metodos.gauss_seidel import gausseidel
+from .metodos.parser import parse_matrix
 
 import numpy as np
 
@@ -13,23 +15,57 @@ def jacobi_view(request):
         form = JacobiForm(request.POST)
         if form.is_valid():
             try:
-                A = np.array(eval(form.cleaned_data['A']))
-                b = np.array(eval(form.cleaned_data['b']))
-                x0 = np.array(eval(form.cleaned_data['x0']))
+                A_text = form.cleaned_data['A']
+                A = parse_matrix(A_text)
+                b_text = form.cleaned_data['b']
+                b = parse_matrix(b_text)
+                x0_text = form.cleaned_data['x0']
+                x0 = parse_matrix(x0_text)
                 tol = form.cleaned_data['tol']
                 niter = form.cleaned_data['niter']
 
-                errores, solucion = jacobi(x0, A, b, tol, niter)
+                tabla, solucion = jacobi(x0, A, b, tol, niter)
                 resultado = {
                     'solucion': solucion,
-                    'errores': errores,
+                    'tabla': tabla,
                 }
             except Exception as e:
                 resultado = None
-                errores = [f"Error en los datos: {e}"]
+                tabla = [f"Error en los datos: {e}"]
 
-            return render(request, 'result_jacobi.html', {'form': form, 'resultado': resultado, 'errores': errores})
+            return render(request, 'result_jacobi.html', {'form': form, 'resultado': resultado, 'tabla': tabla})
     else:
         form = JacobiForm()
 
     return render(request, 'jacobi.html', {'form': form})
+
+def gausseidel_view(request):
+    resultado = None
+    errores = None
+
+    if request.method == 'POST':
+        form = GausseidelForm(request.POST)
+        if form.is_valid():
+            try:
+                A_text = form.cleaned_data['A']
+                A = parse_matrix(A_text)
+                b_text = form.cleaned_data['b']
+                b = parse_matrix(b_text)
+                x0_text = form.cleaned_data['x0']
+                x0 = parse_matrix(x0_text)
+                tol = form.cleaned_data['tol']
+                niter = form.cleaned_data['niter']
+
+                tabla, solucion = gausseidel(x0, A, b, tol, niter)
+                resultado = {
+                    'solucion': solucion,
+                    'tabla': tabla,
+                }
+            except Exception as e:
+                resultado = None
+                tabla = [f"Error en los datos: {e}"]
+            return render(request, 'result_gausseidel.html', {'form': form, 'resultado': resultado, 'tabla': tabla})
+    else:
+        form = GausseidelForm()
+
+    return render(request, 'gausseidel.html', {'form': form})
