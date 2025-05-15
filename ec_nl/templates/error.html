@@ -1,14 +1,13 @@
 {% extends "layout/base.html" %}
 
-{% block title %}Método de la Secante{% endblock %}
+{% block title %}Error general{% endblock %}
 
 {% block content %}
-    <h1>Resultado del Método de la Secante</h1>
-    <p>Raiz: {{ resultado }}</p>
+    <h1>Error general</h1>
     {{ tabla|safe }}
     
     <h2>Gráfico de la función</h2>
     <img src="{{ imagen }}" alt="Gráfico de la función" class="img-fluid">
     
-    <a href="/secante/">Realizar otro cálculo</a>
+    <a href="/metodos/">Volver</a>
 {% endblock %}

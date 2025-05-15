@@ -40,8 +40,12 @@ def regla_falsa(request):
             modo = data.pop('Modo', None)
             if modo == 'cs':
                 resultado, tabla, imagen = Reglafalsa.reglafalsaCS(**data)
+                if resultado == "Error":
+                    return render(request, 'error.html', {'resultado': resultado, 'tabla': tabla, 'imagen': imagen})
             else:
                 resultado, tabla, imagen = Reglafalsa.reglafalsaDC(**data)
+                if resultado == "Error":
+                    return render(request, 'error.html', {'resultado': resultado, 'tabla': tabla, 'imagen': imagen})
             return render(request, 'result_rf.html', {'resultado': resultado, 'tabla': tabla, 'imagen': imagen})
     else:
         form = ReglaFalsaForm()
@@ -70,8 +74,12 @@ def secante(request):
             modo = data.pop('Modo', None)
             if modo == 'cs':
                 resultado, tabla, imagen = Secante.secanteCS(**data)
+                if resultado == "Error":
+                    return render(request, 'error.html', {'resultado': resultado, 'tabla': tabla, 'imagen': imagen})
             else:
                 resultado, tabla, imagen = Secante.secanteDC(**data)
+                if resultado == "Error":
+                    return render(request, 'error.html', {'resultado': resultado, 'tabla': tabla, 'imagen': imagen})
             return render(request, 'result_sc.html', {'resultado': resultado, 'tabla': tabla, 'imagen': imagen})
     else:
         form = SecanteForm()
