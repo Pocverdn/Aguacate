@@ -22,16 +22,48 @@ def biseccion(a, b, tol, niter, fun, Modo):
     fxmlist = []
     E = []
 
-    x = a
-    fa = fun(a)
-    x = b
-    fb = fun(b)
 
-    if fa == 0:
-        resultado = f"{a} es raíz de f(x)"
-    elif fb == 0:
-        resultado = f"{b} es raíz de f(x)"
-    elif fa * fb < 0:
+    try:
+        x = a
+        fa = fun(a)
+        x = b
+        fb = fun(b)
+
+    except Exception as e:
+        print(f"1: {e}")
+        x = a
+        fa = fun(a)
+        x = b
+        fb = fun(b)
+
+        df = pd.DataFrame(tabla, columns=["i", "Xm", "f(Xm)", "Error"])
+
+        x_vals = np.linspace(a - 5, b + 5, 400)
+        y_vals = [fun(x) for x in x_vals]
+
+        plt.figure(figsize=(8, 6))
+        plt.plot(x_vals, y_vals, label=f'f(x) = {fun}', color='blue')
+        plt.axhline(0, color='black', linewidth=1)
+        plt.scatter(x, 0, color='red', zorder=5, label=f'Raíz: {round(x, 4)}')
+        plt.xlabel("x")
+        plt.ylabel("f(x)")
+        plt.title("Método de Bisección")
+        plt.legend()
+        plt.grid()
+
+        buf = io.BytesIO()
+        plt.savefig(buf, format="png")
+        buf.seek(0)
+        string = base64.b64encode(buf.read()).decode()
+        img_uri = f"data:image/png;base64,{string}"
+
+        resultado = "Error"
+
+        return resultado, df.to_html(index=False, classes='table table-striped text-center'), img_uri
+
+
+
+    if fa * fb < 0:
         i = 0
         xm = (a + b) / 2
         x = xm
@@ -42,27 +74,56 @@ def biseccion(a, b, tol, niter, fun, Modo):
         tabla.append([i, xm, fxm, error])
 
         while error > tol and fxm != 0 and i < niter:
-            if fa * fxm < 0:
-                b = xm
-                x = b
-                fb = fun(x)
-            else:
-                a = xm
-                x = a
-                fa = fun(x)
 
-            xma = xm
-            xm = (a + b) / 2
-            x = xm
-            fxm = fun(x)
+            try:
+                if fa * fxm < 0:
+                    b = xm
+                    x = b
+                    fb = fun(x)
+                else:
+                    a = xm
+                    x = a
+                    fa = fun(x)
 
-            if (Modo == "cs"):
-                error = abs((xm - xma)/xm)
-            else:
-                error = abs((xm - xma))
-            i += 1
+                xma = xm
+                xm = (a + b) / 2
+                x = xm
+                fxm = fun(x)
 
-            tabla.append([i, xm, fxm, error])
+                if (Modo == "cs"):
+                    error = abs((xm - xma)/xm)
+                else:
+                    error = abs((xm - xma))
+                i += 1
+
+                tabla.append([i, xm, fxm, error])
+
+            except Exception as e:
+                print(f"2: {e}")
+                df = pd.DataFrame(tabla, columns=["i", "Xm", "f(Xm)", "Error"])
+
+                x_vals = np.linspace(a - 5, b + 5, 400)
+                y_vals = [fun(x) for x in x_vals]
+
+                plt.figure(figsize=(8, 6))
+                plt.plot(x_vals, y_vals, label=f'f(x) = {fun}', color='blue')
+                plt.axhline(0, color='black', linewidth=1)
+                plt.scatter(x, 0, color='red', zorder=5, label=f'Raíz: {round(x, 4)}')
+                plt.xlabel("x")
+                plt.ylabel("f(x)")
+                plt.title("Método de Bisección")
+                plt.legend()
+                plt.grid()
+
+                buf = io.BytesIO()
+                plt.savefig(buf, format="png")
+                buf.seek(0)
+                string = base64.b64encode(buf.read()).decode()
+                img_uri = f"data:image/png;base64,{string}"
+
+                resultado = f'Error'
+
+                return resultado, df.to_html(index=False, classes='table table-striped text-center'), img_uri
 
         if fxm == 0:
             resultado = f"{x} es raíz de f(x)"
@@ -70,9 +131,61 @@ def biseccion(a, b, tol, niter, fun, Modo):
         elif error <= tol:
             resultado = f"{x} es una aproximación de una raíz con tolerancia {tol}"
         else:
-            resultado = f"Fracaso en {niter} iteraciones"
+            df = pd.DataFrame(tabla, columns=["i", "Xm", "f(Xm)", "Error"])
+
+            x_vals = np.linspace(a - 5, b + 5, 400)
+            y_vals = [fun(x) for x in x_vals]
+
+            plt.figure(figsize=(8, 6))
+            plt.plot(x_vals, y_vals, label=f'f(x) = {fun}', color='blue')
+            plt.axhline(0, color='black', linewidth=1)
+            plt.scatter(x, 0, color='red', zorder=5, label=f'Raíz: {round(x, 4)}')
+            plt.xlabel("x")
+            plt.ylabel("f(x)")
+            plt.title("Método de Bisección")
+            plt.legend()
+            plt.grid()
+
+            buf = io.BytesIO()
+            plt.savefig(buf, format="png")
+            buf.seek(0)
+            string = base64.b64encode(buf.read()).decode()
+            img_uri = f"data:image/png;base64,{string}"
+
+            resultado = f'Error en la iteracion {niter}, ultima aproximacion: {x}'
+
+            return resultado, df.to_html(index=False, classes='table table-striped text-center'), img_uri
+
+    elif fa == 0:
+        resultado = f"{a} es raíz de f(x)"
+    elif fb == 0:
+        resultado = f"{b} es raíz de f(x)"
     else:
-        resultado = "El intervalo es inadecuado"
+        df = pd.DataFrame(tabla, columns=["i", "Xm", "f(Xm)", "Error"])
+
+        x_vals = np.linspace(a - 5, b + 5, 400)
+        y_vals = [fun(x) for x in x_vals]
+
+        plt.figure(figsize=(8, 6))
+        plt.plot(x_vals, y_vals, label=f'f(x) = {fun}', color='blue')
+        plt.axhline(0, color='black', linewidth=1)
+        plt.xlabel("x")
+        plt.ylabel("f(x)")
+        plt.title("Método de Bisección")
+        plt.legend()
+        plt.grid()
+
+        buf = io.BytesIO()
+        plt.savefig(buf, format="png")
+        buf.seek(0)
+        string = base64.b64encode(buf.read()).decode()
+        img_uri = f"data:image/png;base64,{string}"
+
+        resultado = "Error"
+
+        return resultado, df.to_html(index=False, classes='table table-striped text-center'), img_uri
+
+    
 
     df = pd.DataFrame(tabla, columns=["i", "Xm", "f(Xm)", "Error"])
 
@@ -85,7 +198,7 @@ def biseccion(a, b, tol, niter, fun, Modo):
     plt.scatter(x, 0, color='red', zorder=5, label=f'Raíz: {round(x, 4)}')
     plt.xlabel("x")
     plt.ylabel("f(x)")
-    plt.title("Método de Punto Fijo")
+    plt.title("Método de Bisección")
     plt.legend()
     plt.grid()
 

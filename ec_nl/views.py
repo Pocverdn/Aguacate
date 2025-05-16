@@ -26,6 +26,9 @@ def biseccion_view(request):
             data["fun"] = f
 
             resultado, tabla, img = biseccion(**data)
+
+            if resultado == "Error":
+                return render(request, 'error.html', {'resultado': resultado, 'tabla': tabla, 'imagen': img})
             print(resultado, tabla)
             return render(request, 'result_biseccion.html', {
                 'resultado': resultado,
@@ -64,8 +67,12 @@ def newton(request):
             modo = data.pop('Modo', None)
             if modo == 'cs':
                 resultado, tabla, imagen = Newton.metodo_newtonCS(**data)
+                if resultado == "Error":
+                    return render(request, 'error.html', {'resultado': resultado, 'tabla': tabla, 'imagen': imagen})
             else:
                 resultado, tabla, imagen = Newton.metodo_newton(**data)
+                if resultado == "Error":
+                    return render(request, 'error.html', {'resultado': resultado, 'tabla': tabla, 'imagen': imagen})
             return render(request, 'result_ne.html', {'resultado': resultado, 'tabla': tabla, 'imagen': imagen})
     else:
         form = NewtonForm()
@@ -128,8 +135,12 @@ def metodo_punto_fijo(request):
             modo = data.pop('Modo', None)
             if modo == 'cs':
                 resultado, tabla, imagen = Puntofijo.punto_fijoCS(**data)
+                if resultado == "Error":
+                    return render(request, 'error.html', {'resultado': resultado, 'tabla': tabla, 'imagen': imagen})
             else:
                 resultado, tabla, imagen = Puntofijo.punto_fijo(**data)
+                if resultado == "Error":
+                    return render(request, 'error.html', {'resultado': resultado, 'tabla': tabla, 'imagen': imagen})
             return render(request, 'result_pf.html', {'resultado': resultado, 'tabla': tabla, 'imagen': imagen})
     else:
         form = PuntoFijoForm()

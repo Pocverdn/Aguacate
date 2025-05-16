@@ -33,7 +33,6 @@ def secanteDC( X0, X1, Tol, Niter, Fun):
         fxnlist.append(f1)
         nlist.append(i)
         Error = 100
-        print(f"1: {e}")
         tabla.append([i, X1, f1, Error])
 
         df_resultado = pd.DataFrame(tabla, columns=["I", "Xi", "F(Xi)", "E"])
