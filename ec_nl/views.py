@@ -7,9 +7,13 @@ from .metodos.Biseccion import biseccion
 from .metodos.Raices_multiples import raices_multiples
 from sympy import symbols, sympify, lambdify
 
-import io
+from io import BytesIO
 from django.http import FileResponse
-from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Image, Spacer, Table, TableStyle
+from reportlab.lib import colors
+import base64
+import pandas as pd
 
 
 
@@ -152,42 +156,60 @@ def todos_view(request):
         if form.is_valid():
             data = form.cleaned_data
             modo = data.pop('Modo', None)
-            resultados = []
+            resultados = {}
+
+            a = data.get("a")
+            b = data.get("b")
+            tol = data.get("tol")
+            niter = data.get("niter")
+            fun = data.get("fun")
+            df = data.get("df")
+            ddf = data.get("ddf")
+            g = data.get("g")
+
 
             if modo == 'cs':
-                resultados.append(Puntofijo.punto_fijoCS(**data))
-                resultados.append(Secante.secanteCS(**data))
-                resultados.append(Reglafalsa.reglafalsaCS(**data))
-                resultados.append(Newton.metodo_newtonCS(**data))
-                resultados.append(biseccion(**data))
-                resultados.append(raices_multiples(**data))
+                resultados['Punto Fijo'] = {'mensaje': '', 'tabla': '', 'imagen': ''}
+                resultados['Secante'] = {'mensaje': '', 'tabla': '', 'imagen': ''}
+                resultados['Regla Falsa'] = {'mensaje': '', 'tabla': '', 'imagen': ''}
+                resultados['Newton'] = {'mensaje': '', 'tabla': '', 'imagen': ''}
+
+                resultados['Punto Fijo']['mensaje'], resultados['Punto Fijo']['tabla'], resultados['Punto Fijo']['imagen'] = Puntofijo.punto_fijoCS(a, tol, niter, fun, g)
+                resultados['Secante']['mensaje'], resultados['Secante']['tabla'], resultados['Secante']['imagen'] = Secante.secanteCS(a, b, tol, niter, fun)
+                resultados['Regla Falsa']['mensaje'], resultados['Regla Falsa']['tabla'], resultados['Regla Falsa']['imagen'] = Reglafalsa.reglafalsaCS(a, b, tol, niter, fun)
+                resultados['Newton']['mensaje'], resultados['Newton']['tabla'], resultados['Newton']['imagen'] = Newton.metodo_newtonCS(a, tol, niter, fun, df)
             else:
-                resultados.append(Puntofijo.punto_fijo(**data))
-                resultados.append(Secante.secanteDC(**data))
-                resultados.append(Reglafalsa.reglafalsaDC(**data))
-                resultados.append(Newton.metodo_newton(**data))
-                resultados.append(biseccion(**data))
-                resultados.append(raices_multiples(**data))
+                resultados['Punto Fijo'] = {'mensaje': '', 'tabla': '', 'imagen': ''}
+                resultados['Secante'] = {'mensaje': '', 'tabla': '', 'imagen': ''}
+                resultados['Regla Falsa'] = {'mensaje': '', 'tabla': '', 'imagen': ''}
+                resultados['Newton'] = {'mensaje': '', 'tabla': '', 'imagen': ''}
 
-            buffer = io.BytesIO()
-            p = canvas.Canvas(buffer)
-            p.setFont("Helvetica", 12)
-            p.drawString(100, 800, "Resultados de Métodos Numéricos")
+                resultados['Punto Fijo']['mensaje'], resultados['Punto Fijo']['tabla'], resultados['Punto Fijo']['imagen'] = Puntofijo.punto_fijo(a, tol, niter, fun, g)
+                resultados['Secante']['mensaje'], resultados['Secante']['tabla'], resultados['Secante']['imagen'] = Secante.secanteDC(a, b, tol, niter, fun)
+                resultados['Regla Falsa']['mensaje'], resultados['Regla Falsa']['tabla'], resultados['Regla Falsa']['imagen'] = Reglafalsa.reglafalsaDC(a, b, tol, niter, fun)
+                resultados['Newton']['mensaje'], resultados['Newton']['tabla'], resultados['Newton']['imagen'] = Newton.metodo_newton(a, tol, niter, fun, df)
 
-            y = 770
-            for i, (resultado, tabla, imagen) in enumerate(resultados):
-                p.drawString(100, y, f"Método {i+1} - Resultado: {resultado}")
-                y -= 20
-                for fila in tabla:
-                    p.drawString(100, y, str(fila))
-                    y -= 15
-                y -= 20
 
-            p.showPage()
-            p.save()
+            buffer = BytesIO()
+            doc = SimpleDocTemplate(buffer, pagesize=letter)
+            elements = []
+
+            for metodo, datos in resultados.items():
+                elements.append(Paragraph(f"<b>{metodo}</b>", style=None))
+                elements.append(Paragraph(str(datos['mensaje']), style=None))
+                tabla = pd.read_html(datos['tabla'])[0]
+                table_data = [list(tabla.columns)] + tabla.values.tolist()
+                elements.append(Table(table_data, style=[('GRID', (0,0), (-1,-1), 1, colors.black)]))
+                if datos['imagen']:
+                    image_data = base64.b64decode(datos['imagen'].split(',')[1])
+                    img = Image(BytesIO(image_data), width=400, height=300)
+                    elements.append(img)
+                elements.append(Spacer(1, 12))
+
+            doc.build(elements)
             buffer.seek(0)
+            return FileResponse(buffer, as_attachment=True, filename="resultados.pdf")
 
-            return FileResponse(buffer, as_attachment=True, filename='resultados_metodos.pdf')
     else:
         form = todosForm()
     return render(request, 'todos.html', {'form': form})

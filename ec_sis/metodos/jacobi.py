@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-def jacobi(x0, A, b, tol, niter):
+def jacobi(x0, A, b, tol, niter, modo):
     c = 0
     error = tol + 1
     E = []
@@ -16,7 +16,12 @@ def jacobi(x0, A, b, tol, niter):
     
     while error > tol and c < niter:
         x1 = T.dot(x0) + C
-        error = np.linalg.norm(x1 - x0, np.inf)
+
+        if(modo == "cs"):
+            error = np.linalg.norm((x1 - x0) / x1, np.inf)
+        else:
+            error = np.linalg.norm(x1 - x0, np.inf)
+            
         E.append(error)
         x0 = x1
         c += 1
