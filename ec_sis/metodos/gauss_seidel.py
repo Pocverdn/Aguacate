@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-def gausseidel(x0, A, b, Tol, niter):
+def gausseidel(x0, A, b, Tol, niter, modo):
     """
     Resuelve el sistema Ax = b utilizando el método Jacobi o Gauss-Seidel (matricial).
     
@@ -21,6 +21,8 @@ def gausseidel(x0, A, b, Tol, niter):
     E = []  # Lista para almacenar los errores de cada iteración
     all_x = []  # Lista para almacenar los valores de x1, x2, ..., xn por iteración
 
+    
+    
     D = np.diag(np.diagonal(A))  # Matriz diagonal
     L = -np.tril(A, -1)           # Matriz triangular inferior
     U = -np.triu(A, 1)            # Matriz triangular superior
@@ -31,7 +33,12 @@ def gausseidel(x0, A, b, Tol, niter):
     while error > Tol and c < niter:
         x1 = T @ x0 + C
 
-        E.append(np.linalg.norm(x1 - x0, np.inf))  # Error infinito
+        if(modo == "cs"):
+            error = np.linalg.norm((x1 - x0) / x1, np.inf)
+        else:
+            error = np.linalg.norm(x1 - x0, np.inf)
+
+        E.append(error)  # Error infinito
         error = E[-1]
         x0 = x1
         c += 1
@@ -43,7 +50,7 @@ def gausseidel(x0, A, b, Tol, niter):
         print(s)
         print(f'\n✅ Convergió en {c} iteraciones con tolerancia {Tol}.')
     else:
-        s = x0
+        s = "No se encontró solución, ULTIMA APROXIMACIÓN: " + str(x0)
         print(f'⚠️  Fracasó en {niter} iteraciones. ')
 
     # Crear la tabla con pandas

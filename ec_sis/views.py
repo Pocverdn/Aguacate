@@ -56,8 +56,9 @@ def gausseidel_view(request):
                 x0 = parse_matrix(x0_text)
                 tol = form.cleaned_data['tol']
                 niter = form.cleaned_data['niter']
+                modo = form.cleaned_data['Modo']
 
-                tabla, solucion = gausseidel(x0, A, b, tol, niter)
+                tabla, solucion = gausseidel(x0, A, b, tol, niter, modo)
                 resultado = {
                     'solucion': solucion,
                     'tabla': tabla,

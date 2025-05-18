@@ -42,7 +42,7 @@ def biseccion(a, b, tol, niter, fun, Modo):
         y_vals = [fun(x) for x in x_vals]
 
         plt.figure(figsize=(8, 6))
-        plt.plot(x_vals, y_vals, label=f'f(x) = {fun}', color='blue')
+        plt.plot(x_vals, y_vals, label=f'f(x) = {str(fun)}', color='blue')
         plt.axhline(0, color='black', linewidth=1)
         plt.scatter(x, 0, color='red', zorder=5, label=f'Raíz: {round(x, 4)}')
         plt.xlabel("x")
@@ -106,7 +106,7 @@ def biseccion(a, b, tol, niter, fun, Modo):
                 y_vals = [fun(x) for x in x_vals]
 
                 plt.figure(figsize=(8, 6))
-                plt.plot(x_vals, y_vals, label=f'f(x) = {fun}', color='blue')
+                plt.plot(x_vals, y_vals, label=f'f(x) = {str(fun)}', color='blue')
                 plt.axhline(0, color='black', linewidth=1)
                 plt.scatter(x, 0, color='red', zorder=5, label=f'Raíz: {round(x, 4)}')
                 plt.xlabel("x")
@@ -137,7 +137,7 @@ def biseccion(a, b, tol, niter, fun, Modo):
             y_vals = [fun(x) for x in x_vals]
 
             plt.figure(figsize=(8, 6))
-            plt.plot(x_vals, y_vals, label=f'f(x) = {fun}', color='blue')
+            plt.plot(x_vals, y_vals, label=f'f(x) = {str(fun)}', color='blue')
             plt.axhline(0, color='black', linewidth=1)
             plt.scatter(x, 0, color='red', zorder=5, label=f'Raíz: {round(x, 4)}')
             plt.xlabel("x")
@@ -167,7 +167,7 @@ def biseccion(a, b, tol, niter, fun, Modo):
         y_vals = [fun(x) for x in x_vals]
 
         plt.figure(figsize=(8, 6))
-        plt.plot(x_vals, y_vals, label=f'f(x) = {fun}', color='blue')
+        plt.plot(x_vals, y_vals, label=f'f(x) = {str(fun)}', color='blue')
         plt.axhline(0, color='black', linewidth=1)
         plt.xlabel("x")
         plt.ylabel("f(x)")
@@ -193,7 +193,7 @@ def biseccion(a, b, tol, niter, fun, Modo):
     y_vals = [fun(x) for x in x_vals]
 
     plt.figure(figsize=(8, 6))
-    plt.plot(x_vals, y_vals, label=f'f(x) = {fun}', color='blue')
+    plt.plot(x_vals, y_vals, label=f'f(x) = {str(fun)}', color='blue')
     plt.axhline(0, color='black', linewidth=1)
     plt.scatter(x, 0, color='red', zorder=5, label=f'Raíz: {round(x, 4)}')
     plt.xlabel("x")

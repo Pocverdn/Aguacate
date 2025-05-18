@@ -124,7 +124,8 @@ def raices_multiples_view(request):
             resultado, tabla, img = raices_multiples(**data)
             return render(request, 'result_raices_multiples.html', {
                 'resultado': resultado,
-                'tabla': tabla
+                'tabla': tabla,
+                'imagen': img
             })
     else:
         form = RaicesMultiplesForm()
@@ -164,8 +165,17 @@ def todos_view(request):
             niter = data.get("niter")
             fun = data.get("fun")
             df = data.get("df")
-            ddf = data.get("ddf")
             g = data.get("g")
+
+            x = symbols('x')
+            expr = sympify(data.get("fun"))
+            fun2 = lambdify(x, expr)
+
+            expr = sympify(data.get("df"))
+            df2 = lambdify(x, expr)
+
+            expr = sympify(data.get("ddf"))
+            ddf2 = lambdify(x, expr)
 
 
             if modo == 'cs':
@@ -173,21 +183,30 @@ def todos_view(request):
                 resultados['Secante'] = {'mensaje': '', 'tabla': '', 'imagen': ''}
                 resultados['Regla Falsa'] = {'mensaje': '', 'tabla': '', 'imagen': ''}
                 resultados['Newton'] = {'mensaje': '', 'tabla': '', 'imagen': ''}
+                resultados['Biseccion'] = {'mensaje': '', 'tabla': '', 'imagen': ''}
+                resultados['Raices Multiples'] = {'mensaje': '', 'tabla': '', 'imagen': ''}
 
                 resultados['Punto Fijo']['mensaje'], resultados['Punto Fijo']['tabla'], resultados['Punto Fijo']['imagen'] = Puntofijo.punto_fijoCS(a, tol, niter, fun, g)
                 resultados['Secante']['mensaje'], resultados['Secante']['tabla'], resultados['Secante']['imagen'] = Secante.secanteCS(a, b, tol, niter, fun)
                 resultados['Regla Falsa']['mensaje'], resultados['Regla Falsa']['tabla'], resultados['Regla Falsa']['imagen'] = Reglafalsa.reglafalsaCS(a, b, tol, niter, fun)
                 resultados['Newton']['mensaje'], resultados['Newton']['tabla'], resultados['Newton']['imagen'] = Newton.metodo_newtonCS(a, tol, niter, fun, df)
+                resultados['Biseccion']['mensaje'], resultados['Biseccion']['tabla'], resultados['Biseccion']['imagen'] = biseccion(a, b, tol, niter, fun2, modo)
+                resultados['Raices Multiples']['mensaje'], resultados['Raices Multiples']['tabla'], resultados['Raices Multiples']['imagen'] = raices_multiples(a, tol, niter, fun2, df2, ddf2, modo)
             else:
                 resultados['Punto Fijo'] = {'mensaje': '', 'tabla': '', 'imagen': ''}
                 resultados['Secante'] = {'mensaje': '', 'tabla': '', 'imagen': ''}
                 resultados['Regla Falsa'] = {'mensaje': '', 'tabla': '', 'imagen': ''}
                 resultados['Newton'] = {'mensaje': '', 'tabla': '', 'imagen': ''}
+                resultados['Biseccion'] = {'mensaje': '', 'tabla': '', 'imagen': ''}
+                resultados['Raices Multiples'] = {'mensaje': '', 'tabla': '', 'imagen': ''}
 
                 resultados['Punto Fijo']['mensaje'], resultados['Punto Fijo']['tabla'], resultados['Punto Fijo']['imagen'] = Puntofijo.punto_fijo(a, tol, niter, fun, g)
                 resultados['Secante']['mensaje'], resultados['Secante']['tabla'], resultados['Secante']['imagen'] = Secante.secanteDC(a, b, tol, niter, fun)
                 resultados['Regla Falsa']['mensaje'], resultados['Regla Falsa']['tabla'], resultados['Regla Falsa']['imagen'] = Reglafalsa.reglafalsaDC(a, b, tol, niter, fun)
                 resultados['Newton']['mensaje'], resultados['Newton']['tabla'], resultados['Newton']['imagen'] = Newton.metodo_newton(a, tol, niter, fun, df)
+                resultados['Biseccion']['mensaje'], resultados['Biseccion']['tabla'], resultados['Biseccion']['imagen'] = biseccion(a, b, tol, niter, fun2, modo)
+                resultados['Raices Multiples']['mensaje'], resultados['Raices Multiples']['tabla'], resultados['Raices Multiples']['imagen'] = raices_multiples(a, tol, niter, fun2, df2, ddf2, modo)
+
 
 
             buffer = BytesIO()
