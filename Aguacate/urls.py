@@ -21,6 +21,7 @@ urlpatterns = [
     path('todos/', ecViews.todos_view, name="todos"),
     path('jacobi/', ecSViews.jacobi_view, name="Jacobi"),
     path('gausseidel/', ecSViews.gausseidel_view, name='Gausseidel'),
+    path('todosNL/', ecSViews.todos_view, name="todos"),
 
 
     path('admin/', admin.site.urls),
