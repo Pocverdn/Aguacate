@@ -1,0 +1,25 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Resultado Método de SOR{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center">Resultado del Método de SOR</h1>
+
+    {% if resultado %}
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5>Solución</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Vector solución:</strong> {{ resultado.solucion }}</p>
+                {{ tabla|safe }}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="mt-4">
+        <a href="/sor" class="btn btn-secondary">Volver</a>
+    </div>
+</div>
+{% endblock %}
