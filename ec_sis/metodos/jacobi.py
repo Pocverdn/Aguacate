@@ -30,7 +30,9 @@ def jacobi(x0, A, b, tol, niter, modo):
     if error < tol:
         print(f"\nSolución aproximada encontrada con tolerancia {tol}: {x0}")
     else:
-        print(f"\nFracasó después de {niter} iteraciones.")
+        aux = x0
+        x0 = "No se encontró solución, ULTIMA APROXIMACIÓN: " + str(aux)
+        print(f'⚠️  Fracasó en {niter} iteraciones. ')
 
     # Crear la tabla con pandas
     table_data = {'Iteración': np.arange(1, c + 1)}
