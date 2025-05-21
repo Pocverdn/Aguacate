@@ -73,4 +73,4 @@ def SOR(x0, A, b, Tol, niter, w, Modo="abs"):
     df_resultado = pd.DataFrame(table_data)
     tabla_html = df_resultado.to_html(index=False, classes='table table-striped text-center')
 
-    return tabla_html, s, E
+    return tabla_html, s

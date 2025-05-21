@@ -24,11 +24,6 @@ def biseccion_view(request):
         if form.is_valid():
             data = form.cleaned_data
 
-            x = symbols('x')
-            expr = sympify(data.get("fun"))
-            f = lambdify(x, expr)
-            data["fun"] = f
-
             resultado, tabla, img = biseccion(**data)
 
             if resultado == "Error":
@@ -107,20 +102,6 @@ def raices_multiples_view(request):
         if form.is_valid():
             data = form.cleaned_data
 
-            x = symbols('x')
-            print(data.get("Fun"))
-            expr = sympify(data.get("Fun"))
-            f = lambdify(x, expr)
-            data["Fun"] = f
-
-            expr = sympify(data.get("df"))
-            df = lambdify(x, expr)
-            data["df"] = df
-
-            expr = sympify(data.get("ddf"))
-            ddf = lambdify(x, expr)
-            data["ddf"] = ddf
-
             resultado, tabla, img = raices_multiples(**data)
             return render(request, 'result_raices_multiples.html', {
                 'resultado': resultado,
@@ -165,17 +146,8 @@ def todos_view(request):
             niter = data.get("niter")
             fun = data.get("fun")
             df = data.get("df")
+            ddf = data.get("ddf")
             g = data.get("g")
-
-            x = symbols('x')
-            expr = sympify(data.get("fun"))
-            fun2 = lambdify(x, expr)
-
-            expr = sympify(data.get("df"))
-            df2 = lambdify(x, expr)
-
-            expr = sympify(data.get("ddf"))
-            ddf2 = lambdify(x, expr)
 
 
             if modo == 'cs':
@@ -190,8 +162,8 @@ def todos_view(request):
                 resultados['Secante']['mensaje'], resultados['Secante']['tabla'], resultados['Secante']['imagen'] = Secante.secanteCS(a, b, tol, niter, fun)
                 resultados['Regla Falsa']['mensaje'], resultados['Regla Falsa']['tabla'], resultados['Regla Falsa']['imagen'] = Reglafalsa.reglafalsaCS(a, b, tol, niter, fun)
                 resultados['Newton']['mensaje'], resultados['Newton']['tabla'], resultados['Newton']['imagen'] = Newton.metodo_newtonCS(a, tol, niter, fun, df)
-                resultados['Biseccion']['mensaje'], resultados['Biseccion']['tabla'], resultados['Biseccion']['imagen'] = biseccion(a, b, tol, niter, fun2, modo)
-                resultados['Raices Multiples']['mensaje'], resultados['Raices Multiples']['tabla'], resultados['Raices Multiples']['imagen'] = raices_multiples(a, tol, niter, fun2, df2, ddf2, modo)
+                resultados['Biseccion']['mensaje'], resultados['Biseccion']['tabla'], resultados['Biseccion']['imagen'] = biseccion(a, b, tol, niter, fun, modo)
+                resultados['Raices Multiples']['mensaje'], resultados['Raices Multiples']['tabla'], resultados['Raices Multiples']['imagen'] = raices_multiples(a, tol, niter, fun, df, ddf, modo)
             else:
                 resultados['Punto Fijo'] = {'mensaje': '', 'tabla': '', 'imagen': ''}
                 resultados['Secante'] = {'mensaje': '', 'tabla': '', 'imagen': ''}
@@ -204,8 +176,8 @@ def todos_view(request):
                 resultados['Secante']['mensaje'], resultados['Secante']['tabla'], resultados['Secante']['imagen'] = Secante.secanteDC(a, b, tol, niter, fun)
                 resultados['Regla Falsa']['mensaje'], resultados['Regla Falsa']['tabla'], resultados['Regla Falsa']['imagen'] = Reglafalsa.reglafalsaDC(a, b, tol, niter, fun)
                 resultados['Newton']['mensaje'], resultados['Newton']['tabla'], resultados['Newton']['imagen'] = Newton.metodo_newton(a, tol, niter, fun, df)
-                resultados['Biseccion']['mensaje'], resultados['Biseccion']['tabla'], resultados['Biseccion']['imagen'] = biseccion(a, b, tol, niter, fun2, modo)
-                resultados['Raices Multiples']['mensaje'], resultados['Raices Multiples']['tabla'], resultados['Raices Multiples']['imagen'] = raices_multiples(a, tol, niter, fun2, df2, ddf2, modo)
+                resultados['Biseccion']['mensaje'], resultados['Biseccion']['tabla'], resultados['Biseccion']['imagen'] = biseccion(a, b, tol, niter, fun, modo)
+                resultados['Raices Multiples']['mensaje'], resultados['Raices Multiples']['tabla'], resultados['Raices Multiples']['imagen'] = raices_multiples(a, tol, niter, fun, df, ddf, modo)
 
 
 
@@ -224,6 +196,50 @@ def todos_view(request):
                     img = Image(BytesIO(image_data), width=400, height=300)
                     elements.append(img)
                 elements.append(Spacer(1, 12))
+
+
+            resumen_data = [['Método', 'Raíz Aproximada', 'Iteraciones']]
+
+            for metodo, datos in resultados.items():
+                try:
+                    tabla = pd.read_html(datos['tabla'])[0]
+                    
+                    raiz = datos["mensaje"]
+                    
+                    iteraciones = len(tabla)
+                    resumen_data.append([metodo, str(raiz), str(iteraciones)])
+                except Exception as e:
+                    resumen_data.append([metodo, 'Error', 'Error'])
+
+            
+            mejor_metodo = None
+            menor_iteraciones = float('inf')
+
+            for fila in resumen_data[1:]:
+                metodo, raiz, iteraciones = fila
+
+                print(fila)
+                try:
+                    iteraciones = int(iteraciones)
+                    if iteraciones < menor_iteraciones and raiz != 'Error':
+                        menor_iteraciones = iteraciones
+                        mejor_metodo = metodo
+                except:
+                    continue
+
+
+            elements.append(Spacer(1, 24))
+            if mejor_metodo:
+                mensaje_final = f"El mejor método según el menor número de iteraciones es: <b>{mejor_metodo}</b> con {menor_iteraciones} iteraciones."
+            else:
+                mensaje_final = "No se pudo determinar un mejor método por errores en los datos."
+
+
+            elements.append(Spacer(1, 24))
+            elements.append(Paragraph("<b>Resumen de raíces e iteraciones</b>", style=None))
+            elements.append(Table(resumen_data, style=[('GRID', (0,0), (-1,-1), 1, colors.black)]))
+
+            elements.append(Paragraph(mensaje_final, style=None))
 
             doc.build(elements)
             buffer.seek(0)

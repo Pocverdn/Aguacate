@@ -4,7 +4,6 @@ import math
 import matplotlib.pyplot as plt
 import base64
 import io
-from sympy import symbols, sympify, lambdify
 
 pd.options.display.float_format = "{:.8f}".format
 
@@ -25,26 +24,23 @@ def biseccion(a, b, tol, niter, fun, Modo):
 
     try:
         x = a
-        fa = fun(a)
+        fa = eval(fun, {"x": a, "math": math})
         x = b
-        fb = fun(b)
+        fb = eval(fun, {"x": b, "math": math})
 
     except Exception as e:
         print(f"1: {e}")
-        x = a
-        fa = fun(a)
-        x = b
-        fb = fun(b)
+
+        tabla = [[0, 0, 0, 0]]
 
         df = pd.DataFrame(tabla, columns=["i", "Xm", "f(Xm)", "Error"])
 
         x_vals = np.linspace(a - 5, b + 5, 400)
-        y_vals = [fun(x) for x in x_vals]
+        y_vals = [eval(fun, {"x": x, "math": math}) for x in x_vals]
 
         plt.figure(figsize=(8, 6))
         plt.plot(x_vals, y_vals, label=f'f(x) = {str(fun)}', color='blue')
         plt.axhline(0, color='black', linewidth=1)
-        plt.scatter(x, 0, color='red', zorder=5, label=f'Raíz: {round(x, 4)}')
         plt.xlabel("x")
         plt.ylabel("f(x)")
         plt.title("Método de Bisección")
@@ -67,7 +63,7 @@ def biseccion(a, b, tol, niter, fun, Modo):
         i = 0
         xm = (a + b) / 2
         x = xm
-        fxm = fun(x)
+        fxm = fb = eval(fun, {"x": x, "math": math})
         xmlist.append(fxm)
         error = 100
 
@@ -79,16 +75,16 @@ def biseccion(a, b, tol, niter, fun, Modo):
                 if fa * fxm < 0:
                     b = xm
                     x = b
-                    fb = fun(x)
+                    eval(fun, {"x": x, "math": math})
                 else:
                     a = xm
                     x = a
-                    fa = fun(x)
+                    fa = fb = eval(fun, {"x": x, "math": math})
 
                 xma = xm
                 xm = (a + b) / 2
                 x = xm
-                fxm = fun(x)
+                fxm = eval(fun, {"x": x, "math": math})
 
                 if (Modo == "cs"):
                     error = abs((xm - xma)/xm)
@@ -103,7 +99,7 @@ def biseccion(a, b, tol, niter, fun, Modo):
                 df = pd.DataFrame(tabla, columns=["i", "Xm", "f(Xm)", "Error"])
 
                 x_vals = np.linspace(a - 5, b + 5, 400)
-                y_vals = [fun(x) for x in x_vals]
+                y_vals = [eval(fun, {"x": x, "math": math}) for x in x_vals]
 
                 plt.figure(figsize=(8, 6))
                 plt.plot(x_vals, y_vals, label=f'f(x) = {str(fun)}', color='blue')
@@ -134,7 +130,7 @@ def biseccion(a, b, tol, niter, fun, Modo):
             df = pd.DataFrame(tabla, columns=["i", "Xm", "f(Xm)", "Error"])
 
             x_vals = np.linspace(a - 5, b + 5, 400)
-            y_vals = [fun(x) for x in x_vals]
+            y_vals = [eval(fun, {"x": x, "math": math}) for x in x_vals]
 
             plt.figure(figsize=(8, 6))
             plt.plot(x_vals, y_vals, label=f'f(x) = {str(fun)}', color='blue')
@@ -164,7 +160,7 @@ def biseccion(a, b, tol, niter, fun, Modo):
         df = pd.DataFrame(tabla, columns=["i", "Xm", "f(Xm)", "Error"])
 
         x_vals = np.linspace(a - 5, b + 5, 400)
-        y_vals = [fun(x) for x in x_vals]
+        y_vals = [eval(fun, {"x": x, "math": math}) for x in x_vals]
 
         plt.figure(figsize=(8, 6))
         plt.plot(x_vals, y_vals, label=f'f(x) = {str(fun)}', color='blue')
@@ -190,7 +186,7 @@ def biseccion(a, b, tol, niter, fun, Modo):
     df = pd.DataFrame(tabla, columns=["i", "Xm", "f(Xm)", "Error"])
 
     x_vals = np.linspace(a - 5, b + 5, 400)
-    y_vals = [fun(x) for x in x_vals]
+    y_vals = [eval(fun, {"x": x, "math": math}) for x in x_vals]
 
     plt.figure(figsize=(8, 6))
     plt.plot(x_vals, y_vals, label=f'f(x) = {str(fun)}', color='blue')

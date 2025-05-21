@@ -28,14 +28,7 @@ def punto_fijo(X0, Tol, Niter, Fun, g):
     except Exception as e:
         print(f"1: {e}")
 
-        c = 0
-        Error = 100
-        fn.append(f)
-        xn.append(x)
-        E.append(Error)
-        N.append(c)
-        tabla = []
-        tabla.append([c, x, f, Error])
+        tabla = [[0, 0, 0, 0]]
 
         df = pd.DataFrame(tabla, columns=["I", "Xi", "F(Xi)", "E"])
 
@@ -45,7 +38,6 @@ def punto_fijo(X0, Tol, Niter, Fun, g):
         plt.figure(figsize=(8, 6))
         plt.plot(x_vals, y_vals, label=f'f(x) = {Fun}', color='blue')
         plt.axhline(0, color='black', linewidth=1)  
-        plt.scatter(xn[-1], 0, color='red', zorder=5, label=f'Raíz: {round(xn[-1], 4)}')  
         plt.xlabel("x")
         plt.ylabel("f(x)")
         plt.title("Método de Punto Fijo")
@@ -88,7 +80,6 @@ def punto_fijo(X0, Tol, Niter, Fun, g):
             plt.figure(figsize=(8, 6))
             plt.plot(x_vals, y_vals, label=f'f(x) = {Fun}', color='blue')
             plt.axhline(0, color='black', linewidth=1)  
-            plt.scatter(xn[-1], 0, color='red', zorder=5, label=f'Raíz: {round(xn[-1], 4)}')  
             plt.xlabel("x")
             plt.ylabel("f(x)")
             plt.title("Método de Punto Fijo")
@@ -197,18 +188,7 @@ def punto_fijoCS(X0, Tol, Niter, Fun, g):
     except Exception as e:
         print(f"1: {e}")
 
-        c = 0
-        Error = 100
-        error = 100
-
-        fn.append(f)
-        xn.append(x)
-        E.append(Error)
-        e.append(error)
-        N.append(c)
-
-        tabla = []
-        tabla.append([c, x, f, error])
+        tabla = [[0, 0, 0, 0]]
 
         df = pd.DataFrame(tabla, columns=["I", "Xi", "F(Xi)", "E"])
 
@@ -218,7 +198,6 @@ def punto_fijoCS(X0, Tol, Niter, Fun, g):
         plt.figure(figsize=(8, 6))
         plt.plot(x_vals, y_vals, label=f'f(x) = {Fun}', color='blue')
         plt.axhline(0, color='black', linewidth=1)
-        plt.scatter(xn[-1], 0, color='red', zorder=5, label=f'Raíz: {round(xn[-1], 4)}')
         plt.xlabel("x")
         plt.ylabel("f(x)")
         plt.title("Método de Punto Fijo")
@@ -269,7 +248,6 @@ def punto_fijoCS(X0, Tol, Niter, Fun, g):
             plt.figure(figsize=(8, 6))
             plt.plot(x_vals, y_vals, label=f'f(x) = {Fun}', color='blue')
             plt.axhline(0, color='black', linewidth=1)
-            plt.scatter(xn[-1], 0, color='red', zorder=5, label=f'Raíz: {round(xn[-1], 4)}')
             plt.xlabel("x")
             plt.ylabel("f(x)")
             plt.title("Método de Punto Fijo")
@@ -301,7 +279,6 @@ def punto_fijoCS(X0, Tol, Niter, Fun, g):
         plt.figure(figsize=(8, 6))
         plt.plot(x_vals, y_vals, label=f'f(x) = {Fun}', color='blue')
         plt.axhline(0, color='black', linewidth=1)  
-        plt.scatter(xn[-1], 0, color='red', zorder=5, label=f'Raíz: {round(xn[-1], 4)}')  
         plt.xlabel("x")
         plt.ylabel("f(x)")
         plt.title("Método de Punto Fijo")

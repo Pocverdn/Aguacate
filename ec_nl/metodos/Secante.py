@@ -15,9 +15,9 @@ def secanteDC( X0, X1, Tol, Niter, Fun):
     E=[]
     tabla = []
     x = X0
-    f0 = eval(Fun)
+    f0 = eval(Fun, {"x": x, "math": math})
     x = X1
-    f1= eval(Fun)
+    f1= eval(Fun, {"x": x, "math": math})
     try:
         i = 0
         xnlist.append(X1)
@@ -28,12 +28,8 @@ def secanteDC( X0, X1, Tol, Niter, Fun):
         tabla.append([i, X1, f1, Error])
     except Exception as e:
         print(f"1: {e}")
-        i = 0
-        xnlist.append(X1)
-        fxnlist.append(f1)
-        nlist.append(i)
-        Error = 100
-        tabla.append([i, X1, f1, Error])
+
+        tabla = [[0, 0, 0, 0]]
 
         df_resultado = pd.DataFrame(tabla, columns=["I", "Xi", "F(Xi)", "E"])
         tabla_html = df_resultado.to_html(index=False, classes='table table-striped text-center')
@@ -65,7 +61,7 @@ def secanteDC( X0, X1, Tol, Niter, Fun):
         try:
 
             x=X1-((f1*(X1-X0))/(f1-f0))
-            f=eval(Fun)
+            f=eval(Fun, {"x": x, "math": math})
             X0 = X1
             X1 = x
             f0 = f1
@@ -187,9 +183,9 @@ def secanteCS( X0, X1, Tol, Niter, Fun):
     E=[]
     tabla = []
     x = X0
-    f0 = eval(Fun)
+    f0 = eval(Fun, {"x": x, "math": math})
     x = X1
-    f1= eval(Fun)
+    f1= eval(Fun, {"x": x, "math": math})
 
     try:
         i = 0
@@ -201,13 +197,8 @@ def secanteCS( X0, X1, Tol, Niter, Fun):
         tabla.append([i, X1, f1, Error])
     except Exception as e:
         print(f"1: {e}")
-        i = 0
-        xnlist.append(X1)
-        fxnlist.append(f1)
-        nlist.append(i)
-        Error = 100
-        print(f"1: {e}")
-        tabla.append([i, X1, f1, Error])
+
+        tabla = [[0, 0, 0, 0]]
 
         df_resultado = pd.DataFrame(tabla, columns=["I", "Xi", "F(Xi)", "E"])
         tabla_html = df_resultado.to_html(index=False, classes='table table-striped text-center')
@@ -237,7 +228,7 @@ def secanteCS( X0, X1, Tol, Niter, Fun):
     while E[i] >= Tol and f1 != 0 and i < Niter:
         try:
             x=X1-((f1*(X1-X0))/(f1-f0))
-            f=eval(Fun)
+            f=eval(Fun, {"x": x, "math": math})
             X0 = X1
             X1 = x
             f0 = f1

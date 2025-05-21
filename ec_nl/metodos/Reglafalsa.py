@@ -20,10 +20,44 @@ def reglafalsaDC( a, b, Tol, Niter, Fun):
     Niter = Niter
     Fun = Fun
 
-    x = a
-    fa = eval(Fun)
-    x = b
-    fb = eval(Fun)
+    try:
+
+        x = a
+        fa = eval(Fun)
+        x = b
+        fb = eval(Fun)
+
+    except Exception as e:
+        print(f"1: {e}")
+
+        tabla = [[0, 0, 0, 0]]
+
+        df_resultado = pd.DataFrame(tabla, columns=["I", "Xi", "F(Xi)", "E"])
+        tabla_html = df_resultado.to_html(index=False, classes='table table-striped text-center')
+
+        x_vals = np.linspace(min(xrlist) - 1, max(xrlist) + 1, 100)
+        y_vals = [eval(Fun, {"x": val, "math": math}) for val in x_vals]
+
+        plt.figure(figsize=(8, 6))
+        plt.plot(x_vals, y_vals, label=f'f(x) = {Fun}', color='blue')
+        plt.axhline(0, color='black', linewidth=1)
+        plt.xlabel("x")
+        plt.ylabel("f(x)")
+        plt.title("Método de la Regla Falsa")
+        plt.legend()
+        plt.grid()
+
+        buf = io.BytesIO()
+        plt.savefig(buf, format="png")
+        buf.seek(0)
+        string = base64.b64encode(buf.read()).decode()
+        img_uri = f"data:image/png;base64,{string}"
+
+        s = "Error"
+
+        return s, tabla_html, img_uri
+
+
     if fa*fb < 0:
         try:
             i = 0
@@ -251,10 +285,44 @@ def reglafalsaCS( a, b, Tol, Niter, Fun):
     Niter = Niter
     Fun = Fun
 
-    x = a
-    fa = eval(Fun)
-    x = b
-    fb = eval(Fun)
+    try:
+
+        x = a
+        fa = eval(Fun)
+        x = b
+        fb = eval(Fun)
+
+    except Exception as e:
+        print(f"1: {e}")
+
+        tabla = [[0, 0, 0, 0]]
+
+        df_resultado = pd.DataFrame(tabla, columns=["I", "Xi", "F(Xi)", "E"])
+        tabla_html = df_resultado.to_html(index=False, classes='table table-striped text-center')
+
+        x_vals = np.linspace(min(xrlist) - 1, max(xrlist) + 1, 100)
+        y_vals = [eval(Fun, {"x": val, "math": math}) for val in x_vals]
+
+        plt.figure(figsize=(8, 6))
+        plt.plot(x_vals, y_vals, label=f'f(x) = {Fun}', color='blue')
+        plt.axhline(0, color='black', linewidth=1)
+        plt.xlabel("x")
+        plt.ylabel("f(x)")
+        plt.title("Método de la Regla Falsa")
+        plt.legend()
+        plt.grid()
+
+        buf = io.BytesIO()
+        plt.savefig(buf, format="png")
+        buf.seek(0)
+        string = base64.b64encode(buf.read()).decode()
+        img_uri = f"data:image/png;base64,{string}"
+
+        s = "Error"
+
+        return s, tabla_html, img_uri
+    
+    
     if fa*fb < 0:
         try:
             i = 0

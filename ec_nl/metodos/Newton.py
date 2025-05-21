@@ -30,15 +30,7 @@ def metodo_newton(X0, Tol, Niter, Fun, df_expr):
     except Exception as e:
         print(f"1: {e}")
 
-        c = 0
-        Error = 100               
-        fn.append(f)
-        xn.append(x)
-        E.append(Error)
-        N.append(c)
-
-        tabla = []
-        tabla.append([c, x, f, Error])
+        tabla = [[0, 0, 0, 0]]
 
         df_resultado = pd.DataFrame(tabla, columns=["I", "Xi", "F(Xi)", "E"])
         tabla_html = df_resultado.to_html(index=False, classes='table table-striped text-center')
@@ -194,15 +186,7 @@ def metodo_newtonCS(X0, Tol, Niter, Fun, df_expr):
     except Exception as e:
         print(f"1: {e}")
 
-        c = 0
-        error = 100
-
-        fn.append(f)
-        xn.append(x)
-        E.append(error)
-        N.append(c)
-
-        tabla = [[c, x, f, error]]
+        tabla = [[0, 0, 0, 0]]
 
         df_resultado = pd.DataFrame(tabla, columns=["Iteración", "Xi", "F(Xi)", "Error relativo"])
         tabla_html = df_resultado.to_html(index=False, classes='table table-striped text-center')

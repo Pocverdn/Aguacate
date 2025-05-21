@@ -127,6 +127,7 @@ def todos_view(request):
             b = parse_matrix(form.cleaned_data['b'])
             x0 = parse_matrix(form.cleaned_data['x0'])
             tol = form.cleaned_data['tol']
+            w = form.cleaned_data['w']
             niter = form.cleaned_data['niter']
             modo = form.cleaned_data['Modo']
 
@@ -135,6 +136,9 @@ def todos_view(request):
 
             tabla, solucion = gausseidel(x0, A, b, tol, niter, modo)
             resultados['Gauss'] = {'tabla': tabla, 'solucion': solucion}
+
+            tabla, solucion = SOR(x0, A, b, tol, niter, w, modo)
+            resultados['SOR'] = {'tabla': tabla, 'solucion': solucion}
 
             buffer = BytesIO()
             doc = SimpleDocTemplate(buffer, pagesize=letter)
@@ -147,6 +151,52 @@ def todos_view(request):
                 table_data = [list(tabla.columns)] + tabla.values.tolist()
                 elements.append(Table(table_data, style=[('GRID', (0,0), (-1,-1), 1, colors.black)]))
                 elements.append(Spacer(1, 12))
+
+
+            resumen_data = [['Método', 'Matriz', 'Iteraciones']]
+
+            for metodo, datos in resultados.items():
+                try:
+                    tabla = pd.read_html(datos['tabla'])[0]
+                    
+                    solucion = datos["solucion"]
+                    
+                    iteraciones = len(tabla)
+                    resumen_data.append([metodo, str(solucion), str(iteraciones)])
+                except Exception as e:
+                    resumen_data.append([metodo, 'Error', 'Error'])
+
+
+            mejor_metodo = None
+            menor_iteraciones = float('inf')
+
+            for fila in resumen_data[1:]:   
+                metodo, raiz, iteraciones = fila
+
+                print(fila)
+                try:
+                    iteraciones = int(iteraciones)
+                    if iteraciones < menor_iteraciones and raiz != 'Error':
+                        menor_iteraciones = iteraciones
+                        mejor_metodo = metodo
+                except:
+                    continue
+
+
+            elements.append(Spacer(1, 24))
+            if mejor_metodo:
+                mensaje_final = f"El mejor método según el menor número de iteraciones es: <b>{mejor_metodo}</b> con {menor_iteraciones} iteraciones."
+            else:
+                mensaje_final = "No se pudo determinar un mejor método por errores en los datos."
+
+
+                    
+
+            elements.append(Spacer(1, 24))
+            elements.append(Paragraph("<b>Resumen de raíces e iteraciones</b>", style=None))
+            elements.append(Table(resumen_data, style=[('GRID', (0,0), (-1,-1), 1, colors.black)]))
+
+            elements.append(Paragraph(mensaje_final, style=None))
 
             doc.build(elements)
             buffer.seek(0)
