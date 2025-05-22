@@ -33,25 +33,49 @@ def SOR(x0, A, b, Tol, niter, w, Modo="abs"):
     E = []        # Lista de errores por iteración
     all_x = []    # Lista de vectores de solución por iteración
 
-    D = np.diag(np.diag(A))
-    L = -np.tril(A, -1)
-    U = -np.triu(A, 1)
+    aux = False
+
+    try:
+
+        D = np.diag(np.diag(A))
+        L = -np.tril(A, -1)
+        U = -np.triu(A, 1)
+
+    except Exception as e:
+        print(f"Error en la matriz: {e}")
+        return "N/A", "Error", True
 
     while error > Tol and c < niter:
-        T = np.linalg.inv(D - w * L) @ ((1 - w) * D + w * U)
-        C = w * np.linalg.inv(D - w * L) @ b
-        x1 = T @ x0 + C
+        
+        try:
 
-        # Cálculo del error
-        if Modo == "cs":
-            error = np.linalg.norm((x1 - x0) / x1, ord=np.inf)
-        else:
-            error = np.linalg.norm(x1 - x0, ord=np.inf)
+            T = np.linalg.inv(D - w * L) @ ((1 - w) * D + w * U)
+            C = w * np.linalg.inv(D - w * L) @ b
+            x1 = T @ x0 + C
 
-        E.append(error)
-        all_x.append(x1.copy())
-        x0 = x1
-        c += 1
+            # Cálculo del error
+            if Modo == "cs":
+                error = np.linalg.norm((x1 - x0) / x1, ord=np.inf)
+            else:
+                error = np.linalg.norm(x1 - x0, ord=np.inf)
+
+            E.append(error)
+            all_x.append(x1.copy())
+            x0 = x1
+            c += 1
+
+        except Exception as e:
+            print(f"Error2: {e}")
+
+            table_data = {'Iteración': np.arange(1, c + 1)}
+            for i in range(len(A)):
+                table_data[f'x{i+1}'] = [x[i] for x in all_x]
+            table_data['Error'] = E
+
+            df_resultado = pd.DataFrame(table_data)
+            tabla_html = df_resultado.to_html(index=False, classes='table table-striped text-center')
+
+            return tabla_html, "Error", True
 
     s = x0
 
@@ -61,8 +85,8 @@ def SOR(x0, A, b, Tol, niter, w, Modo="abs"):
         print(s)
     else:
         print(f'\n⚠️  Fracasó en {niter} iteraciones.')
-        print("Última aproximación:")
-        print(s)
+        s = "Error"
+        aux = True
 
     # Crear DataFrame para la tabla
     table_data = {'Iteración': np.arange(1, c + 1)}
@@ -73,4 +97,4 @@ def SOR(x0, A, b, Tol, niter, w, Modo="abs"):
     df_resultado = pd.DataFrame(table_data)
     tabla_html = df_resultado.to_html(index=False, classes='table table-striped text-center')
 
-    return tabla_html, s
+    return tabla_html, s, aux

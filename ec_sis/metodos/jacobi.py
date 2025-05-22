@@ -6,34 +6,58 @@ def jacobi(x0, A, b, tol, niter, modo):
     error = tol + 1
     E = []
     all_x = []
-    
-    D = np.diag(np.diag(A))
-    L = -np.tril(A, -1)
-    U = -np.triu(A, 1)
-    
-    T = np.linalg.inv(D).dot(L + U)
-    C = np.linalg.inv(D).dot(b)
+
+    aux = False
+
+    try:
+
+        D = np.diag(np.diag(A))
+        L = -np.tril(A, -1)
+        U = -np.triu(A, 1)
+        
+        T = np.linalg.inv(D).dot(L + U)
+        C = np.linalg.inv(D).dot(b)
+
+    except Exception as e:
+        print(f"Error en la matriz: {e}")
+        return "N/A", "Error", True
     
     while error > tol and c < niter:
-        x1 = T.dot(x0) + C
+        
+        try:
 
-        if(modo == "cs"):
-            error = np.linalg.norm((x1 - x0) / x1, np.inf)
-        else:
-            error = np.linalg.norm(x1 - x0, np.inf)
+            x1 = T.dot(x0) + C
+
+            if(modo == "cs"):
+                error = np.linalg.norm((x1 - x0) / x1, np.inf)
+            else:
+                error = np.linalg.norm(x1 - x0, np.inf)
+                
+            E.append(error)
+            x0 = x1
+            c += 1
+            all_x.append(x1)
+        except Exception as e:
+            print(f"Error2: {e}")
+
+            table_data = {'Iteración': np.arange(1, c + 1)}
             
-        E.append(error)
-        x0 = x1
-        c += 1
-        all_x.append(x1)
+            for i in range(len(A)):
+                table_data[f'x{i+1}'] = [x[i] for x in all_x]
+            
+            table_data['Error'] = E
+            
+            df_resultado = pd.DataFrame(table_data)
+            tabla_html = df_resultado.to_html(index=False, classes='table table-striped text-center')
+            
+            return tabla_html, "Error", True
 
     if error < tol:
         print(f"\nSolución aproximada encontrada con tolerancia {tol}: {x0}")
     else:
-        aux = x0
-        x0 = "No se encontró solución, ULTIMA APROXIMACIÓN: " + str(aux)
+        x0 = "Error"
         print(f'⚠️  Fracasó en {niter} iteraciones. ')
-
+        aux = True
     # Crear la tabla con pandas
     table_data = {'Iteración': np.arange(1, c + 1)}
     
@@ -48,4 +72,4 @@ def jacobi(x0, A, b, tol, niter, modo):
     df_resultado = pd.DataFrame(table_data)
     tabla_html = df_resultado.to_html(index=False, classes='table table-striped text-center')
     
-    return tabla_html, x0
+    return tabla_html, x0, aux
