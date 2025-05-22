@@ -1,8 +1,10 @@
 from django.shortcuts import render
-from .forms import VanderForm, LagrangeForm, NewtonintForm
+from .forms import VanderForm, LagrangeForm, NewtonintForm, SplineLinIntForm, SplineCubIntForm
 from .metodos.vander import vandermonde
 from .metodos.lagrange import lagrange
 from .metodos.newtonint import newtonint
+from .metodos.splinelin import spline_lineal
+from .metodos.splinecub import spline_cubico
 from .metodos.parser import parse_matrix
 
 import matplotlib
@@ -86,3 +88,49 @@ def newtonint_view(request):
         form = NewtonintForm()
 
     return render(request, 'newtonint.html', {'form': form})
+
+def spline_lin_view(request):
+
+    if request.method == 'POST':
+        form = SplineLinIntForm(request.POST)
+        if form.is_valid():
+
+            x_text = form.cleaned_data['x']
+            x = parse_matrix(x_text)
+            y_text = form.cleaned_data['y']
+            y = parse_matrix(y_text)
+            pol, grafica = spline_lineal(x,y)
+
+            resultado = {
+                'solucion': pol,
+                'grafica': grafica,
+            }            
+
+            return render(request, 'result_spline_lin.html', {'form': form, 'resultado': resultado, 'grafica': grafica})
+    else:
+        form =SplineLinIntForm()
+
+    return render(request, 'spline_lin.html', {'form': form})
+
+def spline_cub_view(request):
+
+    if request.method == 'POST':
+        form = SplineCubIntForm(request.POST)
+        if form.is_valid():
+
+            x_text = form.cleaned_data['x']
+            x = parse_matrix(x_text)
+            y_text = form.cleaned_data['y']
+            y = parse_matrix(y_text)
+            pol, grafica = spline_cubico(x,y)
+
+            resultado = {
+                'solucion': pol,
+                'grafica': grafica,
+            }            
+
+            return render(request, 'result_spline_cub.html', {'form': form, 'resultado': resultado, 'grafica': grafica})
+    else:
+        form =SplineLinIntForm()
+
+    return render(request, 'spline_cub.html', {'form': form})

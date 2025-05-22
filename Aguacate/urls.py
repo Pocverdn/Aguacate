@@ -27,7 +27,8 @@ urlpatterns = [
     path('vander/', interpViews.vander_view, name='Vandermonde'),
     path('lagrange/', interpViews.lagrange_view, name='Lagrange'),
     path('newtonint/', interpViews.newtonint_view, name='NewtonInt'),
-
+    path('splinelin/', interpViews.spline_lin_view, name='SplineLin'),
+    path('splinecub/', interpViews.spline_cub_view, name='SplineCub'),
 
     path('admin/', admin.site.urls),
 ]

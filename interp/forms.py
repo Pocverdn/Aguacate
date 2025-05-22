@@ -12,3 +12,11 @@ class LagrangeForm(forms.Form):
 class NewtonintForm(forms.Form):
     x = forms.CharField(label='Puntos en x')
     y = forms.CharField(label='Puntos en y')
+
+class SplineLinIntForm(forms.Form):
+    x = forms.CharField(label='Puntos en x')
+    y = forms.CharField(label='Puntos en y')
+
+class SplineCubIntForm(forms.Form):
+    x = forms.CharField(label='Puntos en x')
+    y = forms.CharField(label='Puntos en y')

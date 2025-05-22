@@ -1,10 +1,10 @@
 {% extends "layout/base.html" %}
 
-{% block title %}Resultado Método de Spline{% endblock %}
+{% block title %}Resultado Método de Spline Cúbico{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
-    <h1 class="text-center">Resultado del Método de NewtonInt</h1>
+    <h1 class="text-center">Resultado del Método de Spline Cúbico</h1>
 
     {% if resultado %}
         <div class="card mt-4">
@@ -22,7 +22,7 @@
     {% endif %}
 
     <div class="mt-4">
-        <a href="/lagrange" class="btn btn-secondary">Volver</a>
+        <a href="/splinecub" class="btn btn-secondary">Volver</a>
     </div>
 </div>
 {% endblock %}
