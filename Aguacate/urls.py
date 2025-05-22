@@ -19,12 +19,14 @@ urlpatterns = [
     path('secante/', ecViews.secante, name="Secante"),
     path('raicesmultiples/', ecViews.raices_multiples_view, name="Raices Multiples"),
     path('puntofijo/', ecViews.metodo_punto_fijo, name="Punto Fijo"),
-    path('todos/', ecViews.todos_view, name="todos"),
+    path('todos/', ecViews.todos_view, name="Todos"),
     path('jacobi/', ecSViews.jacobi_view, name="Jacobi"),
     path('gausseidel/', ecSViews.gausseidel_view, name='Gausseidel'),
     path('sor/', ecSViews.SOR_view, name='SOR'),
-    path('todosNL/', ecSViews.todos_view, name="todos"),
+    path('todosNL/', ecSViews.todos_view, name="Todos"),
     path('vander/', interpViews.vander_view, name='Vandermonde'),
+    path('lagrange/', interpViews.lagrange_view, name='Lagrange'),
+    path('newtonint/', interpViews.newtonint_view, name='NewtonInt'),
 
 
     path('admin/', admin.site.urls),
