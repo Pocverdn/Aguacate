@@ -9,7 +9,7 @@
     <div class="container">
         <div class="row">
             <div class="card p-3 justify-content-start">
-                <h5>Resolviendo sistemas de ecuaciones no lineales</h5>
+                <h5>Sistemas de ecuaciones no lineales</h5>
                 <div class="row">
                     <div class="col-auto">
                         <form action="/biseccion/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Bisección</button></form>
@@ -40,7 +40,7 @@
     <div class="container">
         <div class="row">
             <div class="card p-3 justify-content-start">
-                <h5>Metodos indirectos</h5>
+                <h5>Métodos indirectos - Sistemas de ecuaciones lineales</h5>
                 <div class="row">
                     <div class="col-auto">
                         <form action="/jacobi/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Jacobi</button></form>
@@ -53,6 +53,28 @@
                     </div>
                     <div class="col-auto">
                         <form action="/todosNL/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Todos</button></form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="card p-3 justify-content-start">
+                <h5>Interpolación</h5>
+                <div class="row">
+                    <div class="col-auto">
+                        <form action="/jacobi/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Vandermonde</button></form>
+                    </div>
+                    <div class="col-auto">
+                        <form action="/jacobi/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">NewtonInt</button></form>
+                    </div>
+                    <div class="col-auto">
+                        <form action="/jacobi/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Lagrange</button></form>
+                    </div>
+                    <div class="col-auto">
+                        <form action="/jacobi/" method="POST" class="formbox" >{% csrf_token %}<button type="submit">Spline</button></form>
                     </div>
                 </div>
             </div>
