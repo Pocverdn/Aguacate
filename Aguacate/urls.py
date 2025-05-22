@@ -7,6 +7,7 @@ from django.conf import settings
 from main import views as mainViews
 from ec_nl import views as ecViews
 from ec_sis import views as ecSViews
+from interp import views as interpViews
 
 urlpatterns = [
     path('', mainViews.index, name="Home"),
@@ -23,6 +24,7 @@ urlpatterns = [
     path('gausseidel/', ecSViews.gausseidel_view, name='Gausseidel'),
     path('sor/', ecSViews.SOR_view, name='SOR'),
     path('todosNL/', ecSViews.todos_view, name="todos"),
+    path('vander/', interpViews.vander_view, name='Vandermonde'),
 
 
     path('admin/', admin.site.urls),
