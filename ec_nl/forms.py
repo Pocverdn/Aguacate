@@ -11,7 +11,7 @@ class BiseccionForm(forms.Form):
     tol = forms.FloatField(label='Tolerancia')
     niter = forms.IntegerField(label='Número de Iteraciones')
     fun = forms.CharField(label='Función f(x)', max_length=100)
-    Modo = forms.ChoiceField(choices=modo_opciones, label="Modo")
+    Modo = forms.ChoiceField(choices=modo_opciones, label="Error")
 
 
 class RaicesMultiplesForm(forms.Form):
