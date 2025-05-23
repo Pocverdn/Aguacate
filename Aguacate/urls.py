@@ -29,6 +29,7 @@ urlpatterns = [
     path('newtonint/', interpViews.newtonint_view, name='NewtonInt'),
     path('splinelin/', interpViews.spline_lin_view, name='SplineLin'),
     path('splinecub/', interpViews.spline_cub_view, name='SplineCub'),
+    path('todosInter/', interpViews.todo_view, name="Todos"),
 
     path('admin/', admin.site.urls),
 ]

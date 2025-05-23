@@ -103,6 +103,10 @@ def raices_multiples_view(request):
             data = form.cleaned_data
 
             resultado, tabla, img = raices_multiples(**data)
+
+            if resultado == "Error":
+                return render(request, 'error.html', {'resultado': resultado, 'tabla': tabla, 'imagen': img})
+            
             return render(request, 'result_raices_multiples.html', {
                 'resultado': resultado,
                 'tabla': tabla,

@@ -1,0 +1,22 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block title %}Error general{% endblock %}
+
+{% block content %}
+    <h1>Error</h1>
+    <h2>Gráfico de la función</h2>
+
+    <div class="row align-items-center">
+
+        <div class="col-md-6 text-center">
+            <img src="{{ grafica }}" alt="Gráfico de la función" class="img-fluid rounded">
+        </div>
+
+        <div class="col-md-6 text-center">
+            <img src="{% static 'formulas/images/ErroresN.png' %}" class="img-fluid rounded" alt="Lista de errores">
+        </div>
+    </div>
+
+    <a href="/metodos/" class="btn btn-primary mt-4">Volver</a>
+{% endblock %}

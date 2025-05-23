@@ -4,65 +4,125 @@ import io
 import base64
 
 def spline_cubico(x, y):
-    n = len(x)
-    A = np.zeros((4*(n-1), 4*(n-1)))
-    b = np.zeros(4*(n-1))
 
-    c = 0
-    h = 0
-    for i in range(n - 1):
-        A[h, c] = x[i]**3
-        A[h, c+1] = x[i]**2
-        A[h, c+2] = x[i]
-        A[h, c+3] = 1
-        b[h] = y[i]
-        c += 4
-        h += 1
+    if len(set(x)) != len(x):
 
-    c = 0
-    for i in range(1, n):
-        A[h, c] = x[i]**3
-        A[h, c+1] = x[i]**2
-        A[h, c+2] = x[i]
-        A[h, c+3] = 1
-        b[h] = y[i]
-        c += 4
-        h += 1
+        plt.plot(x, y, 'r*', label='Puntos dados')
+        plt.title('Interpolación por Lagrange')
+        plt.legend()
+        plt.grid(True)
+        plt.xlabel('x')
+        plt.ylabel('P(x)')
 
-    c = 0
-    for i in range(1, n - 1):
-        A[h, c] = 3*x[i]**2
-        A[h, c+1] = 2*x[i]
-        A[h, c+2] = 1
-        A[h, c+4] = -3*x[i]**2
-        A[h, c+5] = -2*x[i]
-        A[h, c+6] = -1
+        buf = io.BytesIO()
+        plt.savefig(buf, format="png")
+        buf.seek(0)
+        string = base64.b64encode(buf.read()).decode()
+        img_uri = f"data:image/png;base64,{string}"
+
+        plt.close()
+
+        return "Error", img_uri
+    
+    if len(x) != len(y):
+
+        plt.plot(x, y, 'r*', label='Puntos dados')
+        plt.title('Interpolación por Lagrange')
+        plt.legend()
+        plt.grid(True)
+        plt.xlabel('x')
+        plt.ylabel('P(x)')
+
+        buf = io.BytesIO()
+        plt.savefig(buf, format="png")
+        buf.seek(0)
+        string = base64.b64encode(buf.read()).decode()
+        img_uri = f"data:image/png;base64,{string}"
+
+        plt.close()
+
+        return "Error", img_uri
+    
+    try:
+
+        n = len(x)
+        A = np.zeros((4*(n-1), 4*(n-1)))
+        b = np.zeros(4*(n-1))
+
+        c = 0
+        h = 0
+        for i in range(n - 1):
+            A[h, c] = x[i]**3
+            A[h, c+1] = x[i]**2
+            A[h, c+2] = x[i]
+            A[h, c+3] = 1
+            b[h] = y[i]
+            c += 4
+            h += 1
+
+        c = 0
+        for i in range(1, n):
+            A[h, c] = x[i]**3
+            A[h, c+1] = x[i]**2
+            A[h, c+2] = x[i]
+            A[h, c+3] = 1
+            b[h] = y[i]
+            c += 4
+            h += 1
+
+        c = 0
+        for i in range(1, n - 1):
+            A[h, c] = 3*x[i]**2
+            A[h, c+1] = 2*x[i]
+            A[h, c+2] = 1
+            A[h, c+4] = -3*x[i]**2
+            A[h, c+5] = -2*x[i]
+            A[h, c+6] = -1
+            b[h] = 0
+            c += 4
+            h += 1
+
+        c = 0
+        for i in range(1, n - 1):
+            A[h, c] = 6*x[i]
+            A[h, c+1] = 2
+            A[h, c+4] = -6*x[i]
+            A[h, c+5] = -2
+            b[h] = 0
+            c += 4
+            h += 1
+
+        A[h, 0] = 6 * x[0]
+        A[h, 1] = 2
         b[h] = 0
-        c += 4
         h += 1
 
-    c = 0
-    for i in range(1, n - 1):
-        A[h, c] = 6*x[i]
-        A[h, c+1] = 2
-        A[h, c+4] = -6*x[i]
-        A[h, c+5] = -2
+        A[h, -4] = 6 * x[-1]
+        A[h, -3] = 2
         b[h] = 0
-        c += 4
-        h += 1
 
-    A[h, 0] = 6 * x[0]
-    A[h, 1] = 2
-    b[h] = 0
-    h += 1
+        coef = np.linalg.solve(A, b)
+        tabla = coef.reshape((n-1, 4))
+        poly_str = obtener_poly_cub_str(x, tabla)
+    except Exception as e:
+        print(f"Error en la matriz: {e}")
 
-    A[h, -4] = 6 * x[-1]
-    A[h, -3] = 2
-    b[h] = 0
+        plt.plot(x, y, 'r*', label='Puntos dados')
+        plt.title('Interpolación por Lagrange')
+        plt.legend()
+        plt.grid(True)
+        plt.xlabel('x')
+        plt.ylabel('P(x)')
 
-    coef = np.linalg.solve(A, b)
-    tabla = coef.reshape((n-1, 4))
-    poly_str = obtener_poly_cub_str(x, tabla)
+        buf = io.BytesIO()
+        plt.savefig(buf, format="png")
+        buf.seek(0)
+        string = base64.b64encode(buf.read()).decode()
+        img_uri = f"data:image/png;base64,{string}"
+
+        plt.close()
+
+        return "Error", img_uri
     
     grafica  = graficar_cubico(x,y,tabla)
     return poly_str, grafica

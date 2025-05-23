@@ -20,3 +20,9 @@ class SplineLinIntForm(forms.Form):
 class SplineCubIntForm(forms.Form):
     x = forms.CharField(label='Puntos en x')
     y = forms.CharField(label='Puntos en y')
+
+
+class TodoForm(forms.Form):
+    x = forms.CharField(label='Puntos en x')
+    y = forms.CharField(label='Puntos en y')
+    grado = forms.IntegerField(label='Grado')
