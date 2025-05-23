@@ -26,7 +26,7 @@ class RaicesMultiplesForm(forms.Form):
     Fun = forms.CharField(label="Función f(x)", max_length=100)
     df = forms.CharField(label="Derivada f'(x)", max_length=100)
     ddf = forms.CharField(label="Segunda derivada f''(x)", max_length=100)
-    Modo = forms.ChoiceField(choices=modo_opciones, label="Modo")
+    Modo = forms.ChoiceField(choices=modo_opciones, label="Error")
 
 
 class PuntoFijoForm(forms.Form):
@@ -41,7 +41,7 @@ class PuntoFijoForm(forms.Form):
     Niter = forms.IntegerField(label='Número de Iteraciones')
     Fun = forms.CharField(label='Función f(x)', max_length=100)
     g = forms.CharField(label='Función g(x)', max_length=100)
-    Modo = forms.ChoiceField(choices=modo_opciones, label="Modo")
+    Modo = forms.ChoiceField(choices=modo_opciones, label="Error")
 
 class NewtonForm(forms.Form):
 
@@ -55,7 +55,7 @@ class NewtonForm(forms.Form):
     Niter = forms.IntegerField(label='Número de Iteraciones')
     Fun = forms.CharField(label='Función f(x)', max_length=100)
     df_expr = forms.CharField(label='Derivada de la función f(x)', max_length=100)
-    Modo = forms.ChoiceField(choices=modo_opciones, label="Modo")
+    Modo = forms.ChoiceField(choices=modo_opciones, label="Error")
 
 class ReglaFalsaForm(forms.Form):
 
@@ -69,7 +69,7 @@ class ReglaFalsaForm(forms.Form):
     Tol = forms.FloatField(label='Tolerancia')
     Niter = forms.IntegerField(label='Número de Iteraciones')
     Fun = forms.CharField(label='Función f(x)', max_length=100)
-    Modo = forms.ChoiceField(choices=modo_opciones, label="Modo")
+    Modo = forms.ChoiceField(choices=modo_opciones, label="Error")
 
 class SecanteForm(forms.Form):
 
@@ -83,7 +83,7 @@ class SecanteForm(forms.Form):
     Tol = forms.FloatField(label='Tolerancia')
     Niter = forms.IntegerField(label='Número de Iteraciones')
     Fun = forms.CharField(label='Función f(x)', max_length=100)
-    Modo = forms.ChoiceField(choices=modo_opciones, label="Modo")
+    Modo = forms.ChoiceField(choices=modo_opciones, label="Error")
 
 
 class todosForm(forms.Form):
@@ -100,7 +100,7 @@ class todosForm(forms.Form):
     df = forms.CharField(label="Derivada f'(x)", max_length=100)
     ddf = forms.CharField(label="Segunda derivada f''(x)", max_length=100)
     g = forms.CharField(label='Función g(x)', max_length=100)
-    Modo = forms.ChoiceField(choices=modo_opciones, label="Modo")
+    Modo = forms.ChoiceField(choices=modo_opciones, label="Error")
 
 
 

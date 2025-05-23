@@ -12,7 +12,7 @@ class JacobiForm(forms.Form):
     x0 = forms.CharField(label='Vector inicial x0')
     tol = forms.FloatField(label='Tolerancia', initial=1e-5)
     niter = forms.IntegerField(label='Máximo de iteraciones', initial=100)
-    Modo = forms.ChoiceField(choices=modo_opciones, label="Modo")
+    Modo = forms.ChoiceField(choices=modo_opciones, label="Error")
 
 class GausseidelForm(forms.Form):
 
@@ -26,7 +26,7 @@ class GausseidelForm(forms.Form):
     x0 = forms.CharField(label='Vector inicial x0')
     tol = forms.FloatField(label='Tolerancia', initial=1e-5)
     niter = forms.IntegerField(label='Máximo de iteraciones', initial=100)
-    Modo = forms.ChoiceField(choices=modo_opciones, label="Modo")
+    Modo = forms.ChoiceField(choices=modo_opciones, label="Error")
 
 
 class TodosForm(forms.Form):
@@ -42,7 +42,7 @@ class TodosForm(forms.Form):
     tol = forms.FloatField(label='Tolerancia', initial=1e-5)
     w = forms.FloatField(label='w', initial=0.5)
     niter = forms.IntegerField(label='Máximo de iteraciones', initial=100)
-    Modo = forms.ChoiceField(choices=modo_opciones, label="Modo")
+    Modo = forms.ChoiceField(choices=modo_opciones, label="Error")
 
 class SORForm(forms.Form):
     modo_opciones = [
@@ -55,5 +55,5 @@ class SORForm(forms.Form):
     tol = forms.FloatField(label='Tolerancia', initial=1e-5)
     w = forms.FloatField(label='w', initial=0.5)
     niter = forms.IntegerField(label='Máximo de iteraciones', initial=100)
-    Modo = forms.ChoiceField(choices=modo_opciones, label="Modo")
+    Modo = forms.ChoiceField(choices=modo_opciones, label="Error")
     
