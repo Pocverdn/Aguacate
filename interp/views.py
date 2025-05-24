@@ -180,6 +180,8 @@ def todo_view(request):
 
                 eval_point = [expr.subs(x_sym, val).evalf() for val in nx]
 
+                print(eval_point)
+
                 e = abs(eval_point[0] - ny[0])
                 resultados['vandermonde'] = {'pol': pol, 'grafica': grafica, 'eval': eval_point, 'error': e}
             else:
@@ -216,7 +218,9 @@ def todo_view(request):
                     e = abs(eval_point[0] - ny[0])
                     results.append(eval_point)
                     error.append(e)
-                resultados['spline_cubico'] = {'pol': pol, 'grafica': grafica, 'eval': results, 'error': error}
+
+                ne = sum(error) / len(error)
+                resultados['spline_cubico'] = {'pol': pol, 'grafica': grafica, 'eval': results, 'error': ne}
             else:
                 resultados['spline_cubico'] = {'pol': pol, 'grafica': grafica, 'eval': None, 'error': None}
 
@@ -232,8 +236,8 @@ def todo_view(request):
                     results.append(eval_point)
                     error.append(e)
                     
-
-                resultados['spline_lineal'] = {'pol': pol, 'grafica': grafica, 'eval': results, 'error': error}
+                ne = sum(error) / len(error)
+                resultados['spline_lineal'] = {'pol': pol, 'grafica': grafica, 'eval': results, 'error': ne}
             else:
                 resultados['spline_lineal'] = {'pol': pol, 'grafica': grafica, 'eval': None, 'error': None}
                 
@@ -279,9 +283,19 @@ def todo_view(request):
             ]
 
 
+            mejor_metodo = min(resultados, key=lambda k: resultados[k]['error'])
+
+            elements.append(Spacer(1, 24))
+            if mejor_metodo:
+                mensaje_final = f"El mejor método según el menor número de iteraciones es: <b>{mejor_metodo}</b> con un error de {resultados[mejor_metodo]['error']}."
+            else:
+                mensaje_final = "No se pudo determinar un mejor método por errores en los datos."
+
             elements.append(Spacer(1, 24))
             elements.append(Paragraph("<b>Resumen de los metodos</b>", style=None))
             elements.append(Table(resumen_data, style=[('GRID', (0,0), (-1,-1), 1, colors.black)]))
+
+            elements.append(Paragraph(mensaje_final, style=None))
         
 
             doc.build(elements)
