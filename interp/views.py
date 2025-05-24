@@ -110,7 +110,7 @@ def spline_lin_view(request):
             x = parse_matrix(x_text)
             y_text = form.cleaned_data['y']
             y = parse_matrix(y_text)
-            pol, grafica = spline_lineal(x,y)
+            pol, grafica, polinomiosC = spline_lineal(x,y)
 
             if pol == "Error":
                 return render(request, 'errorInt.html', {'pol': pol, 'grafica': grafica})
@@ -136,7 +136,7 @@ def spline_cub_view(request):
             x = parse_matrix(x_text)
             y_text = form.cleaned_data['y']
             y = parse_matrix(y_text)
-            pol, grafica = spline_cubico(x,y)
+            pol, grafica, polinomiosC = spline_cubico(x,y)
 
             if pol == "Error":
                 return render(request, 'errorInt.html', {'pol': pol, 'grafica': grafica})
