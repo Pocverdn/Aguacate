@@ -40,7 +40,9 @@ class TodosForm(forms.Form):
     b = forms.CharField(label='Vector b')
     x0 = forms.CharField(label='Vector inicial x0')
     tol = forms.FloatField(label='Tolerancia', initial=1e-5)
-    w = forms.FloatField(label='w', initial=0.5)
+    w1 = forms.FloatField(label='w1', initial=0.5)
+    w2 = forms.FloatField(label='w2', initial=0.5)
+    w3 = forms.FloatField(label='w3', initial=0.5)
     niter = forms.IntegerField(label='Máximo de iteraciones', initial=100)
     Modo = forms.ChoiceField(choices=modo_opciones, label="Error")
 

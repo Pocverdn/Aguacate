@@ -131,7 +131,9 @@ def todos_view(request):
                 b = parse_matrix(form.cleaned_data['b'])
                 x0 = parse_matrix(form.cleaned_data['x0'])
                 tol = form.cleaned_data['tol']
-                w = form.cleaned_data['w']
+                w1 = form.cleaned_data['w1']
+                w2 = form.cleaned_data['w2']
+                w3 = form.cleaned_data['w3']
                 niter = form.cleaned_data['niter']
                 modo = form.cleaned_data['Modo']
 
@@ -141,8 +143,14 @@ def todos_view(request):
                 tabla, solucion, error = gausseidel(x0, A, b, tol, niter, modo)
                 resultados['Gauss'] = {'tabla': tabla, 'solucion': solucion}
 
-                tabla, solucion, error = SOR(x0, A, b, tol, niter, w, modo)
-                resultados['SOR'] = {'tabla': tabla, 'solucion': solucion}
+                tabla, solucion, error = SOR(x0, A, b, tol, niter, w1, modo)
+                resultados['SOR1'] = {'tabla': tabla, 'solucion': solucion}
+
+                tabla, solucion, error = SOR(x0, A, b, tol, niter, w2, modo)
+                resultados['SOR2'] = {'tabla': tabla, 'solucion': solucion}
+                
+                tabla, solucion, error = SOR(x0, A, b, tol, niter, w3, modo)
+                resultados['SOR3'] = {'tabla': tabla, 'solucion': solucion}
 
                 buffer = BytesIO()
                 doc = SimpleDocTemplate(buffer, pagesize=letter)
