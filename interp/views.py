@@ -18,6 +18,8 @@ from reportlab.lib import colors
 import base64
 import pandas as pd
 
+from sympy import sympify, symbols
+
 
 def vander_view(request):
 
@@ -163,23 +165,78 @@ def todo_view(request):
             x = parse_matrix(x_text)
             y_text = form.cleaned_data['y']
             y = parse_matrix(y_text)
+            nx_text = form.cleaned_data['nx']
+            nx = parse_matrix(nx_text)
+            ny_text = form.cleaned_data['ny']
+            ny = parse_matrix(ny_text)
             grado = form.cleaned_data['grado']
 
+
+            x_sym = symbols('x')
+
             pol, grafica = vandermonde(x,y,grado)
-            resultados['Jacobi'] = {'pol': pol, 'grafica': grafica}
+            if pol != "Error":
+                expr = sympify(pol)
+
+                eval_point = [expr.subs(x_sym, val).evalf() for val in nx]
+
+                e = abs(eval_point[0] - ny[0])
+                resultados['vandermonde'] = {'pol': pol, 'grafica': grafica, 'eval': eval_point, 'error': e}
+            else:
+                resultados['vandermonde'] = {'pol': pol, 'grafica': grafica, 'eval': None, 'error': None}
 
             pol, grafica = lagrange(x,y)
-            resultados['lagrange'] = {'pol': pol, 'grafica': grafica}
+            if pol != "Error":
+                expr = sympify(pol)
+
+                eval_point = [expr.subs(x_sym, val).evalf() for val in nx]
+                e = abs(eval_point[0] - ny[0])
+                resultados['lagrange'] = {'pol': pol, 'grafica': grafica, 'eval': eval_point, 'error': e}
+            else:
+                resultados['lagrange'] = {'pol': pol, 'grafica': grafica, 'eval': None, 'error': None}
 
             pol, grafica = newtonint(x,y)
-            resultados['newton'] = {'pol': pol, 'grafica': grafica}
+            if pol != "Error":
 
-            pol, grafica = spline_cubico(x,y)
-            resultados['spline_cubico'] = {'pol': pol, 'grafica': grafica}
+                expr = sympify(pol)
 
-            pol, grafica = spline_lineal(x,y)
-            resultados['spline_lineal'] = {'pol': pol, 'grafica': grafica}
-          
+                eval_point = [expr.subs(x_sym, val).evalf() for val in nx]
+                e = abs(eval_point[0] - ny[0])
+                resultados['newtonint'] = {'pol': pol, 'grafica': grafica, 'eval': eval_point, 'error': e}
+            else:
+                resultados['newtonint'] = {'pol': pol, 'grafica': grafica, 'eval': None, 'error': None}
+
+            pol, grafica, polinomiosC = spline_cubico(x,y)
+            if pol != "Error":
+                results = []
+                error = []
+                for p in polinomiosC:
+                    expr = sympify(p)
+                    eval_point = [expr.subs(x_sym, val).evalf() for val in nx]
+                    e = abs(eval_point[0] - ny[0])
+                    results.append(eval_point)
+                    error.append(e)
+                resultados['spline_cubico'] = {'pol': pol, 'grafica': grafica, 'eval': results, 'error': error}
+            else:
+                resultados['spline_cubico'] = {'pol': pol, 'grafica': grafica, 'eval': None, 'error': None}
+
+            pol, grafica, polinomios = spline_lineal(x,y)
+            
+            if pol != "Error":
+                results = []
+                error = []
+                for p in polinomios:
+                    expr = sympify(p)
+                    eval_point = [expr.subs(x_sym, val).evalf() for val in nx]
+                    e = abs(eval_point[0] - ny[0])
+                    results.append(eval_point)
+                    error.append(e)
+                    
+
+                resultados['spline_lineal'] = {'pol': pol, 'grafica': grafica, 'eval': results, 'error': error}
+            else:
+                resultados['spline_lineal'] = {'pol': pol, 'grafica': grafica, 'eval': None, 'error': None}
+                
 
             buffer = BytesIO()
             doc = SimpleDocTemplate(buffer, pagesize=letter)
@@ -188,12 +245,44 @@ def todo_view(request):
             for metodo, datos in resultados.items():
                 elements.append(Paragraph(f"<b>{metodo}</b>", style=None))
                 elements.append(Paragraph(str(datos['pol']), style=None))
+                elements.append(Paragraph(str(datos['eval']), style=None))
+                elements.append(Paragraph(str(datos['error']), style=None))
                 if datos['grafica']:
                     image_data = base64.b64decode(datos['grafica'].split(',')[1])
                     img = Image(BytesIO(image_data), width=400, height=300)
                     elements.append(img)
                 elements.append(Spacer(1, 12))
+
             
+            resumen_data = [
+                ['Método', 'Polinomio', 'Evaluación', 'Error'],
+                ['Vandermonde', 
+                Paragraph(str(resultados['vandermonde']['pol'])), 
+                Paragraph(str(resultados['vandermonde']['eval'])), 
+                Paragraph(str(resultados['vandermonde']['error']))],
+                ['Lagrange', 
+                Paragraph(str(resultados['lagrange']['pol'])), 
+                Paragraph(str(resultados['lagrange']['eval'])), 
+                Paragraph(str(resultados['lagrange']['error']))],
+                ['Newton', 
+                Paragraph(str(resultados['newtonint']['pol'])), 
+                Paragraph(str(resultados['newtonint']['eval'])), 
+                Paragraph(str(resultados['newtonint']['error']))],
+                ['Spline Cúbico', 
+                Paragraph("Varios polinomios" if resultados['spline_cubico']['pol'] != "Error" else "Error"), 
+                Paragraph(str(resultados['spline_cubico']['eval'])), 
+                Paragraph(str(resultados['spline_cubico']['error']))],
+                ['Spline Lineal', 
+                Paragraph("Varios polinomios" if resultados['spline_lineal']['pol'] != "Error" else "Error"), 
+                Paragraph(str(resultados['spline_lineal']['eval'])), 
+                Paragraph(str(resultados['spline_lineal']['error']))]
+            ]
+
+
+            elements.append(Spacer(1, 24))
+            elements.append(Paragraph("<b>Resumen de los metodos</b>", style=None))
+            elements.append(Table(resumen_data, style=[('GRID', (0,0), (-1,-1), 1, colors.black)]))
+        
 
             doc.build(elements)
             buffer.seek(0)

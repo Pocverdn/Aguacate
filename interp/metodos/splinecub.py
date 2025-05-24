@@ -103,7 +103,7 @@ def spline_cubico(x, y):
 
         coef = np.linalg.solve(A, b)
         tabla = coef.reshape((n-1, 4))
-        poly_str = obtener_poly_cub_str(x, tabla)
+        poly_str, polinomios = obtener_poly_cub_str(x, tabla)
     except Exception as e:
         print(f"Error en la matriz: {e}")
 
@@ -125,19 +125,21 @@ def spline_cubico(x, y):
         return "Error", img_uri
     
     grafica  = graficar_cubico(x,y,tabla)
-    return poly_str, grafica
+    return poly_str, grafica, polinomios
 
 def obtener_poly_cub_str(x, tabla):
     n_tramos = len(tabla)
     polinomios_str = []
+    polinomios = []
 
     for i in range(n_tramos):
         a, b, c, d = tabla[i]
         tramo = f"{x[i]} ≤ x ≤ {x[i+1]}"
-        pol = (f"{a:.4f}·x³ + {b:.4f}·x² + {c:.4f}·x + {d:.4f}")
+        pol = (f"{a:.4f}*x**3 + {b:.4f}*x**2 + {c:.4f}*x + {d:.4f}")
         polinomios_str.append(f"Tramo {i+1} ({tramo}):  y = {pol}")
+        polinomios.append(pol)
 
-    return polinomios_str
+    return polinomios_str, polinomios
 
 def graficar_cubico(x, y, tabla):
     plt.plot(x, y, 'r*', label='Puntos de datos')

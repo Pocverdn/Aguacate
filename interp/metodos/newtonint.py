@@ -13,7 +13,7 @@ def newtonint(x, y):
         xpol = np.linspace(min(x)-1, max(x)+1, 500)
 
         plt.plot(x, y, 'r*', label='Puntos dados')
-        plt.title('Interpolación por Lagrange')
+        plt.title('Interpolación por newton')
         plt.legend()
         plt.grid(True)
         plt.xlabel('x')
@@ -33,7 +33,7 @@ def newtonint(x, y):
         xpol = np.linspace(min(x)-1, max(x)+1, 500)
 
         plt.plot(x, y, 'r*', label='Puntos dados')
-        plt.title('Interpolación por Lagrange')
+        plt.title('Interpolación por newton')
         plt.legend()
         plt.grid(True)
         plt.xlabel('x')
@@ -82,7 +82,7 @@ def newtonint(x, y):
         xpol = np.linspace(min(x)-1, max(x)+1, 500)
 
         plt.plot(x, y, 'r*', label='Puntos dados')
-        plt.title('Interpolación por Lagrange')
+        plt.title('Interpolación por newton')
         plt.legend()
         plt.grid(True)
         plt.xlabel('x')
@@ -116,7 +116,7 @@ def newtonint(x, y):
             xpol = np.linspace(min(x)-1, max(x)+1, 500)
 
             plt.plot(x, y, 'r*', label='Puntos dados')
-            plt.title('Interpolación por Lagrange')
+            plt.title('Interpolación por newton')
             plt.legend()
             plt.grid(True)
             plt.xlabel('x')

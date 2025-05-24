@@ -34,7 +34,7 @@ def vandermonde(x, y, grado):
         xpol = np.linspace(min(x)-1, max(x)+1, 500)
 
         plt.plot(x, y, 'r*', label='Puntos dados')
-        plt.title('Interpolación por Lagrange')
+        plt.title('Interpolación por vandermonde')
         plt.legend()
         plt.grid(True)
         plt.xlabel('x')
@@ -58,7 +58,7 @@ def vandermonde(x, y, grado):
         xpol = np.linspace(min(x)-1, max(x)+1, 500)
 
         plt.plot(x, y, 'r*', label='Puntos dados')
-        plt.title('Interpolación por Lagrange')
+        plt.title('Interpolación por vandermonde')
         plt.legend()
         plt.grid(True)
         plt.xlabel('x')
@@ -91,7 +91,7 @@ def vandermonde(x, y, grado):
             xpol = np.linspace(min(x)-1, max(x)+1, 500)
 
             plt.plot(x, y, 'r*', label='Puntos dados')
-            plt.title('Interpolación por Lagrange')
+            plt.title('Interpolación por vandermonde')
             plt.legend()
             plt.grid(True)
             plt.xlabel('x')

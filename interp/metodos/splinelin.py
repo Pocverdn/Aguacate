@@ -69,7 +69,7 @@ def spline_lineal(x, y):
 
         coef = np.linalg.solve(A, b)
         tabla = coef.reshape((n-1, 2))
-        poly_str = obtener_poli_str(x, tabla)
+        poly_str, polinomios = obtener_poli_str(x, tabla)
     except Exception as e:
         print(f"Error en la matriz: {e}")
 
@@ -93,19 +93,21 @@ def spline_lineal(x, y):
    
 
     grafica  = graficar_lineal(x,y,tabla)
-    return poly_str, grafica
+    return poly_str, grafica, polinomios
 
 def obtener_poli_str(x, tabla):
     n_tramos = len(tabla)
     polinomios_str = []
+    polinomios = []
 
     for i in range(n_tramos):
         m, b = tabla[i]
         tramo = f"{x[i]} ≤ x ≤ {x[i+1]}"
-        pol = f"{m:.4f}·x + {b:.4f}"
+        pol = f"{m:.4f}*x + {b:.4f}"
         polinomios_str.append(f"Tramo {i+1} ({tramo}):  y = {pol}")
+        polinomios.append(pol)
 
-    return polinomios_str
+    return polinomios_str, polinomios
 
 def graficar_lineal(x, y, tabla):
     plt.plot(x, y, 'r*', label='Puntos de datos')
