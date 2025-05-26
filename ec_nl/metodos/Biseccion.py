@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('Agg')
 import pandas as pd
 import numpy as np
 import math
@@ -52,6 +54,8 @@ def biseccion(a, b, tol, niter, fun, Modo):
         buf.seek(0)
         string = base64.b64encode(buf.read()).decode()
         img_uri = f"data:image/png;base64,{string}"
+
+        plt.close()
 
         resultado = "Error"
 
@@ -117,6 +121,8 @@ def biseccion(a, b, tol, niter, fun, Modo):
                 string = base64.b64encode(buf.read()).decode()
                 img_uri = f"data:image/png;base64,{string}"
 
+                plt.close()
+
                 resultado = f'Error'
 
                 return resultado, df.to_html(index=False, classes='table table-striped text-center'), img_uri
@@ -148,6 +154,8 @@ def biseccion(a, b, tol, niter, fun, Modo):
             string = base64.b64encode(buf.read()).decode()
             img_uri = f"data:image/png;base64,{string}"
 
+            plt.close()
+
             resultado = f'Error en la iteracion {niter}, ultima aproximacion: {x}'
 
             return resultado, df.to_html(index=False, classes='table table-striped text-center'), img_uri
@@ -177,6 +185,8 @@ def biseccion(a, b, tol, niter, fun, Modo):
         string = base64.b64encode(buf.read()).decode()
         img_uri = f"data:image/png;base64,{string}"
 
+        plt.close()
+
         resultado = "Error"
 
         return resultado, df.to_html(index=False, classes='table table-striped text-center'), img_uri
@@ -203,6 +213,8 @@ def biseccion(a, b, tol, niter, fun, Modo):
     buf.seek(0)
     string = base64.b64encode(buf.read()).decode()
     img_uri = f"data:image/png;base64,{string}"
+
+    plt.close()
 
     return resultado, df.to_html(index=False, classes='table table-striped text-center'), img_uri
 

@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('Agg')
 import pandas as pd
 import math
 import matplotlib.pyplot as plt
@@ -51,6 +53,8 @@ def punto_fijo(X0, Tol, Niter, Fun, g):
         string = base64.b64encode(buf.read()).decode()
         img_uri = f"data:image/png;base64,{string}"
 
+        plt.close()
+
         resultado = "Error"
 
         return resultado, df.to_html(index=False, classes='table table-striped text-center'), img_uri
@@ -93,6 +97,8 @@ def punto_fijo(X0, Tol, Niter, Fun, g):
             string = base64.b64encode(buf.read()).decode()
             img_uri = f"data:image/png;base64,{string}"
 
+            plt.close()
+
             resultado = "Error"
 
             return resultado, df.to_html(index=False, classes='table table-striped text-center'), img_uri
@@ -126,6 +132,8 @@ def punto_fijo(X0, Tol, Niter, Fun, g):
         string = base64.b64encode(buf.read()).decode()
         img_uri = f"data:image/png;base64,{string}"
 
+        plt.close()
+
         resultado = f'Error en la iteracion {Niter}, ultima aproximacion: {x}'
 
         return resultado, df.to_html(index=False, classes='table table-striped text-center'), img_uri
@@ -154,6 +162,8 @@ def punto_fijo(X0, Tol, Niter, Fun, g):
     buf.seek(0)
     string = base64.b64encode(buf.read()).decode()
     img_uri = f"data:image/png;base64,{string}"
+
+    plt.close()
 
 
     return resultado, df.to_html(index=False, classes='table table-striped text-center'), img_uri
@@ -211,6 +221,8 @@ def punto_fijoCS(X0, Tol, Niter, Fun, g):
         string = base64.b64encode(buf.read()).decode()
         img_uri = f"data:image/png;base64,{string}"
 
+        plt.close()
+
         resultado = "Error"
 
         return resultado, df.to_html(index=False, classes='table table-striped text-center'), img_uri
@@ -261,6 +273,8 @@ def punto_fijoCS(X0, Tol, Niter, Fun, g):
             string = base64.b64encode(buf.read()).decode()
             img_uri = f"data:image/png;base64,{string}"
 
+            plt.close()
+
             resultado = "Error"
 
             return resultado, df.to_html(index=False, classes='table table-striped text-center'), img_uri
@@ -292,6 +306,8 @@ def punto_fijoCS(X0, Tol, Niter, Fun, g):
         string = base64.b64encode(buf.read()).decode()
         img_uri = f"data:image/png;base64,{string}"
 
+        plt.close()
+
         resultado = f'Error en la iteracion {Niter}, ultima aproximacion: {x}'
 
         return resultado, df.to_html(index=False, classes='table table-striped text-center'), img_uri
@@ -317,5 +333,7 @@ def punto_fijoCS(X0, Tol, Niter, Fun, g):
     buf.seek(0)
     string = base64.b64encode(buf.read()).decode()
     img_uri = f"data:image/png;base64,{string}"
+
+    plt.close()
 
     return resultado, df.to_html(index=False, classes='table table-striped text-center'), img_uri

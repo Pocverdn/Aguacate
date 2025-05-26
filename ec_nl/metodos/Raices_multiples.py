@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('Agg')
 import pandas as pd
 import math
 import numpy as np
@@ -43,6 +45,8 @@ def raices_multiples(X0, Tol, Niter, Fun, df, ddf, Modo):
         string = base64.b64encode(buf.read()).decode()
         img_uri = f"data:image/png;base64,{string}"
 
+        plt.close()
+
         resultado = "Error"
 
         return resultado, df.to_html(index=False, classes='table table-striped text-center'), img_uri
@@ -84,6 +88,8 @@ def raices_multiples(X0, Tol, Niter, Fun, df, ddf, Modo):
             string = base64.b64encode(buf.read()).decode()
             img_uri = f"data:image/png;base64,{string}"
 
+            plt.close()
+
             resultado = "Error"
 
             return resultado, df.to_html(index=False, classes='table table-striped text-center'), img_uri
@@ -114,6 +120,8 @@ def raices_multiples(X0, Tol, Niter, Fun, df, ddf, Modo):
         string = base64.b64encode(buf.read()).decode()
         img_uri = f"data:image/png;base64,{string}"
 
+        plt.close()
+
         resultado = f'Error en la iteracion {Niter}, ultima aproximacion: {x}'
 
         return resultado, df.to_html(index=False, classes='table table-striped text-center'), img_uri
@@ -138,5 +146,7 @@ def raices_multiples(X0, Tol, Niter, Fun, df, ddf, Modo):
     buf.seek(0)
     string = base64.b64encode(buf.read()).decode()
     img_uri = f"data:image/png;base64,{string}"
+
+    plt.close()
 
     return resultado, df.to_html(index=False, classes='table table-striped text-center'), img_uri

@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('Agg')
 import pandas as pd
 import math
 import matplotlib.pyplot as plt
@@ -51,6 +53,8 @@ def secanteDC( X0, X1, Tol, Niter, Fun):
         buf.seek(0)
         string = base64.b64encode(buf.read()).decode()
         img_uri = f"data:image/png;base64,{string}"
+
+        plt.close()
 
         s = "Error"
 
@@ -121,6 +125,8 @@ def secanteDC( X0, X1, Tol, Niter, Fun):
             string = base64.b64encode(buf.read()).decode()
             img_uri = f"data:image/png;base64,{string}"
 
+            plt.close()
+
             s = "Error"
 
             return s, tabla_html, img_uri
@@ -147,6 +153,8 @@ def secanteDC( X0, X1, Tol, Niter, Fun):
         string = base64.b64encode(buf.read()).decode()
         img_uri = f"data:image/png;base64,{string}"
 
+        plt.close()
+
         s = f'Error en la iteracion {Niter}, ultima aproximacion: {x}'
 
         return s, tabla_html, img_uri
@@ -172,6 +180,8 @@ def secanteDC( X0, X1, Tol, Niter, Fun):
     buf.seek(0)
     string = base64.b64encode(buf.read()).decode()
     img_uri = f"data:image/png;base64,{string}"
+
+    plt.close()
 
     return s, tabla_html, img_uri
 
@@ -220,6 +230,8 @@ def secanteCS( X0, X1, Tol, Niter, Fun):
         buf.seek(0)
         string = base64.b64encode(buf.read()).decode()
         img_uri = f"data:image/png;base64,{string}"
+
+        plt.close()
 
         s = "Error general"
 
@@ -288,6 +300,8 @@ def secanteCS( X0, X1, Tol, Niter, Fun):
             string = base64.b64encode(buf.read()).decode()
             img_uri = f"data:image/png;base64,{string}"
 
+            plt.close()
+
             s = "Error"
 
             return s, tabla_html, img_uri 
@@ -314,6 +328,8 @@ def secanteCS( X0, X1, Tol, Niter, Fun):
         string = base64.b64encode(buf.read()).decode()
         img_uri = f"data:image/png;base64,{string}"
 
+        plt.close()
+
         s = f'Error en la iteracion {Niter}, ultima aproximacion: {x}'
 
         return s, tabla_html, img_uri
@@ -339,5 +355,7 @@ def secanteCS( X0, X1, Tol, Niter, Fun):
     buf.seek(0)
     string = base64.b64encode(buf.read()).decode()
     img_uri = f"data:image/png;base64,{string}"
+
+    plt.close()
 
     return s, tabla_html, img_uri

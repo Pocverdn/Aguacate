@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('Agg')
 import pandas as pd
 import math
 import matplotlib.pyplot as plt
@@ -53,6 +55,8 @@ def metodo_newton(X0, Tol, Niter, Fun, df_expr):
         string = base64.b64encode(buf.read()).decode()
         img_uri = f"data:image/png;base64,{string}"
 
+        plt.close()
+
         resultado = "Error"
 
         return resultado, tabla_html, img_uri
@@ -95,6 +99,8 @@ def metodo_newton(X0, Tol, Niter, Fun, df_expr):
             string = base64.b64encode(buf.read()).decode()
             img_uri = f"data:image/png;base64,{string}"
 
+            plt.close()
+
             resultado = "Error"
 
             return resultado, tabla_html, img_uri
@@ -127,6 +133,8 @@ def metodo_newton(X0, Tol, Niter, Fun, df_expr):
         string = base64.b64encode(buf.read()).decode()
         img_uri = f"data:image/png;base64,{string}"
 
+        plt.close()
+
         resultado = f'Error en la iteracion {Niter}, ultima aproximacion: {x}'
 
         return resultado, tabla_html, img_uri
@@ -152,6 +160,8 @@ def metodo_newton(X0, Tol, Niter, Fun, df_expr):
     buf.seek(0)
     string = base64.b64encode(buf.read()).decode()
     img_uri = f"data:image/png;base64,{string}"
+
+    plt.close()
 
     return resultado, tabla_html, img_uri
 
@@ -209,6 +219,8 @@ def metodo_newtonCS(X0, Tol, Niter, Fun, df_expr):
         string = base64.b64encode(buf.read()).decode()
         img_uri = f"data:image/png;base64,{string}"
 
+        plt.close()
+
         resultado = "Error"
 
         return resultado, tabla_html, img_uri
@@ -259,6 +271,8 @@ def metodo_newtonCS(X0, Tol, Niter, Fun, df_expr):
             string = base64.b64encode(buf.read()).decode()
             img_uri = f"data:image/png;base64,{string}"
 
+            plt.close()
+
             resultado = "Error"
 
             return resultado, tabla_html, img_uri
@@ -289,6 +303,8 @@ def metodo_newtonCS(X0, Tol, Niter, Fun, df_expr):
         string = base64.b64encode(buf.read()).decode()
         img_uri = f"data:image/png;base64,{string}"
 
+        plt.close()
+
         resultado = f'Error en la iteracion {Niter}, ultima aproximacion: {x}'
 
         return resultado, tabla_html, img_uri
@@ -314,5 +330,7 @@ def metodo_newtonCS(X0, Tol, Niter, Fun, df_expr):
     buf.seek(0)
     string = base64.b64encode(buf.read()).decode()
     img_uri = f"data:image/png;base64,{string}"
+
+    plt.close()
 
     return resultado, tabla_html, img_uri

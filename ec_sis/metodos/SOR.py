@@ -1,10 +1,6 @@
 import numpy as np
 import pandas as pd
 import numpy as np
-import math
-import matplotlib.pyplot as plt
-import base64
-import io
 from sympy import symbols, sympify, lambdify
 
 import numpy as np

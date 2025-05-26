@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('Agg')
 import pandas as pd
 import math
 import matplotlib.pyplot as plt
@@ -53,6 +55,8 @@ def reglafalsaDC( a, b, Tol, Niter, Fun):
         string = base64.b64encode(buf.read()).decode()
         img_uri = f"data:image/png;base64,{string}"
 
+        plt.close()
+
         s = "Error"
 
         return s, tabla_html, img_uri
@@ -104,6 +108,8 @@ def reglafalsaDC( a, b, Tol, Niter, Fun):
             buf.seek(0)
             string = base64.b64encode(buf.read()).decode()
             img_uri = f"data:image/png;base64,{string}"
+
+            plt.close()
 
             s = "Error"
 
@@ -180,6 +186,8 @@ def reglafalsaDC( a, b, Tol, Niter, Fun):
                 string = base64.b64encode(buf.read()).decode()
                 img_uri = f"data:image/png;base64,{string}"
 
+                plt.close()
+
                 s = "Error"
 
                 return s, tabla_html, img_uri
@@ -206,6 +214,8 @@ def reglafalsaDC( a, b, Tol, Niter, Fun):
             buf.seek(0)
             string = base64.b64encode(buf.read()).decode()
             img_uri = f"data:image/png;base64,{string}"
+
+            plt.close()
             
             s = f'Error en la iteracion {Niter}, ultima aproximacion: {x}'
 
@@ -243,6 +253,8 @@ def reglafalsaDC( a, b, Tol, Niter, Fun):
         string = base64.b64encode(buf.read()).decode()
         img_uri = f"data:image/png;base64,{string}"
 
+        plt.close()
+
         s = "Error"
 
         return s, tabla_html, img_uri
@@ -269,6 +281,8 @@ def reglafalsaDC( a, b, Tol, Niter, Fun):
     buf.seek(0)
     string = base64.b64encode(buf.read()).decode()
     img_uri = f"data:image/png;base64,{string}"
+
+    plt.close()
 
     return s, tabla_html, img_uri
 
@@ -317,6 +331,8 @@ def reglafalsaCS( a, b, Tol, Niter, Fun):
         buf.seek(0)
         string = base64.b64encode(buf.read()).decode()
         img_uri = f"data:image/png;base64,{string}"
+
+        plt.close()
 
         s = "Error"
 
@@ -368,6 +384,8 @@ def reglafalsaCS( a, b, Tol, Niter, Fun):
             buf.seek(0)
             string = base64.b64encode(buf.read()).decode()
             img_uri = f"data:image/png;base64,{string}"
+
+            plt.close()
 
             s = "Error"
 
@@ -442,6 +460,8 @@ def reglafalsaCS( a, b, Tol, Niter, Fun):
                 string = base64.b64encode(buf.read()).decode()
                 img_uri = f"data:image/png;base64,{string}"
 
+                plt.close()
+
                 s = "Error"
 
                 return s, tabla_html, img_uri
@@ -469,6 +489,8 @@ def reglafalsaCS( a, b, Tol, Niter, Fun):
             buf.seek(0)
             string = base64.b64encode(buf.read()).decode()
             img_uri = f"data:image/png;base64,{string}"
+
+            plt.close()
             
             s = f'Error en la iteracion {Niter}, ultima aproximacion: {x}'
 
@@ -507,6 +529,8 @@ def reglafalsaCS( a, b, Tol, Niter, Fun):
         string = base64.b64encode(buf.read()).decode()
         img_uri = f"data:image/png;base64,{string}"
 
+        plt.close()
+
         s = "Error"
 
         return s, tabla_html, img_uri
@@ -533,5 +557,7 @@ def reglafalsaCS( a, b, Tol, Niter, Fun):
     buf.seek(0)
     string = base64.b64encode(buf.read()).decode()
     img_uri = f"data:image/png;base64,{string}"
+
+    plt.close()
 
     return s, tabla_html, img_uri
