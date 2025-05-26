@@ -43,7 +43,7 @@ def SOR(x0, A, b, Tol, niter, w, Modo="abs"):
 
     except Exception as e:
         print(f"Error en la matriz: {e}")
-        return "N/A", "Error", True
+        return "N/A", "Error", True, "N/A"
 
     while error > Tol and c < niter:
         
@@ -52,6 +52,8 @@ def SOR(x0, A, b, Tol, niter, w, Modo="abs"):
             T = np.linalg.inv(D - w * L) @ ((1 - w) * D + w * U)
             C = w * np.linalg.inv(D - w * L) @ b
             x1 = T @ x0 + C
+
+            sp_radius = max(abs(np.linalg.eigvals(T)))
 
             # Cálculo del error
             if Modo == "cs":
@@ -75,7 +77,7 @@ def SOR(x0, A, b, Tol, niter, w, Modo="abs"):
             df_resultado = pd.DataFrame(table_data)
             tabla_html = df_resultado.to_html(index=False, classes='table table-striped text-center')
 
-            return tabla_html, "Error", True
+            return tabla_html, "Error", True, sp_radius
 
     s = x0
 
@@ -97,4 +99,4 @@ def SOR(x0, A, b, Tol, niter, w, Modo="abs"):
     df_resultado = pd.DataFrame(table_data)
     tabla_html = df_resultado.to_html(index=False, classes='table table-striped text-center')
 
-    return tabla_html, s, aux
+    return tabla_html, s, aux, sp_radius

@@ -18,9 +18,11 @@ def jacobi(x0, A, b, tol, niter, modo):
         T = np.linalg.inv(D).dot(L + U)
         C = np.linalg.inv(D).dot(b)
 
+        sp_radius = max(abs(np.linalg.eigvals(T)))
+
     except Exception as e:
         print(f"Error en la matriz: {e}")
-        return "N/A", "Error", True
+        return "N/A", "Error", True, "N/A"
     
     while error > tol and c < niter:
         
@@ -50,7 +52,7 @@ def jacobi(x0, A, b, tol, niter, modo):
             df_resultado = pd.DataFrame(table_data)
             tabla_html = df_resultado.to_html(index=False, classes='table table-striped text-center')
             
-            return tabla_html, "Error", True
+            return tabla_html, "Error", True, sp_radius
 
     if error < tol:
         print(f"\nSolución aproximada encontrada con tolerancia {tol}: {x0}")
@@ -72,4 +74,4 @@ def jacobi(x0, A, b, tol, niter, modo):
     df_resultado = pd.DataFrame(table_data)
     tabla_html = df_resultado.to_html(index=False, classes='table table-striped text-center')
     
-    return tabla_html, x0, aux
+    return tabla_html, x0, aux, sp_radius

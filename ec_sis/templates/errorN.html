@@ -5,7 +5,12 @@
 
 {% block content %}
     <h1>Error</h1>
-    {{ tabla|safe }}
+    <div class="card-body">
+        <p><strong>Vector solución:</strong> {{ resultado.solucion }}</p>
+        <p><strong>Radio espectral:</strong> {{ resultado.radio }}. {{ resultado.convergencia }}</p>
+
+        {{ tabla|safe }}
+    </div>
 
     <div class="row align-items-center">
         <div class="col-md-6 text-center">

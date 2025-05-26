@@ -13,7 +13,7 @@
             </div>
             <div class="card-body">
                 <p><strong>Vector solución:</strong> {{ resultado.solucion }}</p>
-                {{ tabla|safe }}
+                <p><strong>Radio espectral:</strong> {{ resultado.radio }}. {{ resultado.convergencia }}</p>
             </div>
         </div>
     {% endif %}

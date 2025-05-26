@@ -33,9 +33,11 @@ def gausseidel(x0, A, b, Tol, niter, modo):
         T = np.linalg.inv(D - L) @ U
         C = np.linalg.inv(D - L) @ b
 
+        sp_radius = max(abs(np.linalg.eigvals(T)))
+
     except Exception as e:
         print(f"Error en la matriz: {e}")
-        return "N/A", "Error", True
+        return "N/A", "Error", True, "N/A"
     
     while error > Tol and c < niter:
         
@@ -69,7 +71,7 @@ def gausseidel(x0, A, b, Tol, niter, modo):
             df_resultado = pd.DataFrame(table_data)
             tabla_html = df_resultado.to_html(index=False, classes='table table-striped text-center')
 
-            return tabla_html, "Error", True
+            return tabla_html, "Error", True, sp_radius
 
     if error < Tol:
         s = x0
@@ -95,4 +97,4 @@ def gausseidel(x0, A, b, Tol, niter, modo):
     df_resultado = pd.DataFrame(table_data)
     tabla_html = df_resultado.to_html(index=False, classes='table table-striped text-center')
 
-    return tabla_html,s, aux
+    return tabla_html,s, aux, sp_radius

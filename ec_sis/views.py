@@ -34,9 +34,17 @@ def jacobi_view(request):
             niter = form.cleaned_data['niter']
             modo = form.cleaned_data['Modo']
 
-            tabla, solucion, error = jacobi(x0, A, b, tol, niter, modo)
+            tabla, solucion, error, sp_radius = jacobi(x0, A, b, tol, niter, modo)
+
+            if sp_radius < 1:
+                convergencia = 'Radio espectral < 1, por lo tanto el método converge'
+            else:
+                convergencia = 'Radio espectral > 1, el método no converge'
+
             resultado = {
                 'solucion': solucion,
+                'radio': sp_radius,
+                'convergencia': convergencia,
                 'tabla': tabla,
             }
 
@@ -66,9 +74,17 @@ def gausseidel_view(request):
             niter = form.cleaned_data['niter']
             modo = form.cleaned_data['Modo']
 
-            tabla, solucion, error = gausseidel(x0, A, b, tol, niter, modo)
+            tabla, solucion, error, sp_radius = gausseidel(x0, A, b, tol, niter, modo)
+
+            if sp_radius < 1:
+                convergencia = 'Radio espectral < 1, por lo tanto el método converge'
+            else:
+                convergencia = 'Radio espectral > 1, el método no converge'
+
             resultado = {
                 'solucion': solucion,
+                'radio': sp_radius,
+                'convergencia': convergencia,
                 'tabla': tabla,
             }
 
@@ -100,9 +116,17 @@ def SOR_view(request):
             w = form.cleaned_data['w']
             modo = form.cleaned_data['Modo']
 
-            tabla, solucion, error = SOR(x0, A, b, tol, niter, w, modo)
+            tabla, solucion, error, sp_radius = SOR(x0, A, b, tol, niter, modo)
+
+            if sp_radius < 1:
+                convergencia = 'Radio espectral < 1, por lo tanto el método converge'
+            else:
+                convergencia = 'Radio espectral > 1, el método no converge'
+
             resultado = {
                 'solucion': solucion,
+                'radio': sp_radius,
+                'convergencia': convergencia,
                 'tabla': tabla,
             }
 
@@ -122,8 +146,6 @@ def todos_view(request):
         if form.is_valid():
 
             try:
-
-
 
                 resultados = {}
 
