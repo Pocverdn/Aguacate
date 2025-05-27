@@ -159,20 +159,20 @@ def todos_view(request):
                 niter = form.cleaned_data['niter']
                 modo = form.cleaned_data['Modo']
 
-                tabla, solucion, error = jacobi(x0, A, b, tol, niter, modo)
-                resultados['Jacobi'] = {'tabla': tabla, 'solucion': solucion}
+                tabla, solucion, error, sp_radius = jacobi(x0, A, b, tol, niter, modo)
+                resultados['Jacobi'] = {'tabla': tabla, 'solucion': solucion, 'radio': sp_radius}
 
-                tabla, solucion, error = gausseidel(x0, A, b, tol, niter, modo)
-                resultados['Gauss'] = {'tabla': tabla, 'solucion': solucion}
+                tabla, solucion, error, sp_radius = gausseidel(x0, A, b, tol, niter, modo)
+                resultados['Gauss'] = {'tabla': tabla, 'solucion': solucion, 'radio': sp_radius}
 
-                tabla, solucion, error = SOR(x0, A, b, tol, niter, w1, modo)
-                resultados['SOR1'] = {'tabla': tabla, 'solucion': solucion}
+                tabla, solucion, error, sp_radius = SOR(x0, A, b, tol, niter, w1, modo)
+                resultados['SOR1'] = {'tabla': tabla, 'solucion': solucion, 'radio': sp_radius}
 
-                tabla, solucion, error = SOR(x0, A, b, tol, niter, w2, modo)
-                resultados['SOR2'] = {'tabla': tabla, 'solucion': solucion}
+                tabla, solucion, error, sp_radius = SOR(x0, A, b, tol, niter, w2, modo)
+                resultados['SOR2'] = {'tabla': tabla, 'solucion': solucion, 'radio': sp_radius}
                 
-                tabla, solucion, error = SOR(x0, A, b, tol, niter, w3, modo)
-                resultados['SOR3'] = {'tabla': tabla, 'solucion': solucion}
+                tabla, solucion, error, sp_radius = SOR(x0, A, b, tol, niter, w3, modo)
+                resultados['SOR3'] = {'tabla': tabla, 'solucion': solucion, 'radio': sp_radius}
 
                 buffer = BytesIO()
                 doc = SimpleDocTemplate(buffer, pagesize=letter)
@@ -187,16 +187,17 @@ def todos_view(request):
                     elements.append(Spacer(1, 12))
 
 
-                resumen_data = [['Método', 'Matriz', 'Iteraciones']]
+                resumen_data = [['Método', 'Matriz', 'Iteraciones', 'Radio Espectral']]
 
                 for metodo, datos in resultados.items():
                     try:
                         tabla = pd.read_html(datos['tabla'])[0]
                         
                         solucion = datos["solucion"]
+                        solucion = datos["solucion"]
                         
                         iteraciones = len(tabla)
-                        resumen_data.append([metodo, str(solucion), str(iteraciones)])
+                        resumen_data.append([metodo, str(solucion), str(iteraciones), str(sp_radius)])
                     except Exception as e:
                         resumen_data.append([metodo, 'Error', 'Error'])
 
