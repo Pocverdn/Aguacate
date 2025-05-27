@@ -116,7 +116,7 @@ def SOR_view(request):
             w = form.cleaned_data['w']
             modo = form.cleaned_data['Modo']
 
-            tabla, solucion, error, sp_radius = SOR(x0, A, b, tol, niter, modo)
+            tabla, solucion, error, sp_radius = SOR(x0, A, b, tol, niter,w, modo)
 
             if sp_radius < 1:
                 convergencia = 'Radio espectral < 1, por lo tanto el método converge'

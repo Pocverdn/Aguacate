@@ -22,7 +22,7 @@ def jacobi(x0, A, b, tol, niter, modo):
 
     except Exception as e:
         print(f"Error en la matriz: {e}")
-        return "N/A", "Error", True, "N/A"
+        return "N/A", "Error", True, 1000
     
     while error > tol and c < niter:
         

@@ -37,7 +37,7 @@ def gausseidel(x0, A, b, Tol, niter, modo):
 
     except Exception as e:
         print(f"Error en la matriz: {e}")
-        return "N/A", "Error", True, "N/A"
+        return "N/A", "Error", True, 1000
     
     while error > Tol and c < niter:
         

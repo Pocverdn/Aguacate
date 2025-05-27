@@ -42,7 +42,7 @@ def SOR(x0, A, b, Tol, niter, w, Modo="abs"):
 
     except Exception as e:
         print(f"Error en la matriz: {e}")
-        return "N/A", "Error", True, "N/A"
+        return "N/A", "Error", True, 1000
 
     while error > Tol and c < niter:
         
