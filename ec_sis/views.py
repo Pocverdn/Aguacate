@@ -181,23 +181,24 @@ def todos_view(request):
                 for metodo, datos in resultados.items():
                     elements.append(Paragraph(f"<b>{metodo}</b>", style=None))
                     elements.append(Paragraph(str(datos['solucion']), style=None))
+                    elements.append(Paragraph(f"Radio espectral: {datos['radio']:.4f}", style=None))
                     tabla = pd.read_html(datos['tabla'])[0]
                     table_data = [list(tabla.columns)] + tabla.values.tolist()
                     elements.append(Table(table_data, style=[('GRID', (0,0), (-1,-1), 1, colors.black)]))
                     elements.append(Spacer(1, 12))
 
 
-                resumen_data = [['Método', 'Matriz', 'Iteraciones', 'Radio Espectral']]
+                resumen_data = [['Método', 'Matriz', 'Iteraciones']]
 
                 for metodo, datos in resultados.items():
                     try:
                         tabla = pd.read_html(datos['tabla'])[0]
                         
                         solucion = datos["solucion"]
-                        solucion = datos["solucion"]
+                        radio = datos["radio"]
                         
                         iteraciones = len(tabla)
-                        resumen_data.append([metodo, str(solucion), str(iteraciones), str(sp_radius)])
+                        resumen_data.append([metodo, str(solucion), str(iteraciones)])
                     except Exception as e:
                         resumen_data.append([metodo, 'Error', 'Error'])
 
