@@ -37,6 +37,9 @@ def SOR(x0, A, b, Tol, niter, w, Modo="abs"):
         L = -np.tril(A, -1)
         U = -np.triu(A, 1)
 
+        T = np.linalg.inv(D - w * L) @ ((1 - w) * D + w * U)
+        sp_radius = max(abs(np.linalg.eigvals(T)))
+
     except Exception as e:
         print(f"Error en la matriz: {e}")
         return "N/A", "Error", True, "N/A"
@@ -45,11 +48,8 @@ def SOR(x0, A, b, Tol, niter, w, Modo="abs"):
         
         try:
 
-            T = np.linalg.inv(D - w * L) @ ((1 - w) * D + w * U)
             C = w * np.linalg.inv(D - w * L) @ b
             x1 = T @ x0 + C
-
-            sp_radius = max(abs(np.linalg.eigvals(T)))
 
             # Cálculo del error
             if Modo == "cs":
